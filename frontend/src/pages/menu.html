@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt" data-bs-theme="dark" class="h-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+  <header class="bg-body-secondary text-white p-4 d-flex justify-content-between">
+    <div>
+      <div id="header-nome-biblioteca" class="fs-5">Nome da Biblioteca</div>
+      <div id="header-nome-usuario" class="fs-6">Nome do Usuário</div>
+    </div>
+    <h1>Biblioteca Digital</h1>
+  </header>
+    <main>
+        <div class="container-menu-nav">
+            <div class="d-flex justify-content-start">
+              <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <button class="nav-link active" id="v-pills-register-client-tab" data-bs-toggle="pill" data-bs-target="#v-pills-register-client" type="button" role="tab" aria-controls="v-pills-register-client" aria-selected="true">Cadastrar Cliente</button>
+                  <button class="nav-link" id="v-pills-register-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-register-book" type="button" role="tab" aria-controls="v-pills-register-book" aria-selected="false">Cadastrar Livro</button>
+                  <button class="nav-link" id="v-pills-view-books-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-books" type="button" role="tab" aria-controls="v-pills-view-books" aria-selected="false">Exibir Acervo de Livros</button>
+                  <button class="nav-link" id="v-pills-view-clients-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-clients" type="button" role="tab" aria-controls="v-pills-view-clients" aria-selected="false">Exibir Todos os Clientes</button>
+                  <button class="nav-link" id="v-pills-loan-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-loan-book" type="button" role="tab" aria-controls="v-pills-loan-book" aria-selected="false">Realizar Empréstimo</button>
+                  <button class="nav-link" id="v-pills-return-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-return-book" type="button" role="tab" aria-controls="v-pills-return-book" aria-selected="false">Realizar Devolução</button>
+                  <button class="nav-link" id="v-pills-account-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-account-settings" type="button" role="tab" aria-controls="v-pills-account-settings" aria-selected="false">Configurações da Conta</button>
+              </div>
+          </div>
+        </div>
+        <div class="container-conteudo-menu">
+          
+          <!-- Cadastrar Cliente -->
+          <div class="tab-content h-100" id="v-pills-tabContent">
+            <div class="tab-pane fade show active h-100 background-cadastro-usuario" id="v-pills-register-client" role="tabpanel" aria-labelledby="v-pills-register-client-tab" tabindex="0">
+              <div class="container-cadastro d-flex">
+                <h1 class="p-4 text-center">Cadastro de Cliente</h1>
+                <div class="mb-3">
+                  <label for="cliente-nome" class="form-label">Nome</label>
+                  <input type="text" class="form-control" id="cliente-nome">
+                </div>
+                <div class="mb-3">
+                  <label for="cliente-sobrenome" class="form-label">Sobrenome</label>
+                  <input type="text" class="form-control" id="cliente-sobrenome">
+                </div>
+                <div class="mb-3">
+                  <label for="cliente-data-nascimento" class="form-label">Data de Nascimento</label>
+                  <input type="date" class="form-control" id="cliente-data-nascimento">
+                </div>
+                <div class="mb-3">
+                  <label for="cliente-cpf" class="form-label">CPF</label>
+                  <input type="text" class="form-control" id="cliente-cpf">
+                </div>
+                <div class="mb-3">
+                  <label for="cliente-endereco" class="form-label">Endereço</label>
+                  <input type="text" class="form-control" id="cliente-endereco">
+                </div>
+                <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3">Cadastrar Cliente</button>
+              </div>
+            </div>
+
+            <!-- Cadastrar Livro -->
+            <div class="tab-pane fade background-cadastro-livro" id="v-pills-register-book" role="tabpanel" aria-labelledby="v-pills-register-book-tab" tabindex="0">
+              <div class="container-cadastro d-flex">
+                <h1 class="p-4 text-center">Cadastro de Livro</h1>
+                <div class="mb-3">
+                  <label for="livro-titulo" class="form-label">Título do Livro</label>
+                  <input type="text" class="form-control" id="livro-titulo" placeholder="Harry Potter, O Senhor dos Anéis, The Witcher, ...">
+                </div>
+                <div class="mb-3">
+                  <label for="livro-categoria" class="form-label">Categoria do Livro</label>
+                    <select class="form-select" id="livro-categoria">
+                      <option selected>Categoria do livro</option>
+                      <option value="1">Terror</option>
+                      <option value="2">Ficção</option>
+                      <option value="3">Romance</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                  <label for="livro-quantidade" class="form-label">Quantidade do Livro</label>
+                  <input type="number" class="form-control" id="livro-quantidade" placeholder="Quantidade a ser acrescentada no acervo">
+                </div>
+                <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3">Cadastrar Livro</button>
+              </div>
+            </div>
+
+            <!-- Exibir Acervo de Livros -->
+            <div class="tab-pane fade" id="v-pills-view-books" role="tabpanel" aria-labelledby="v-pills-view-books-tab" tabindex="0">
+              <h1 class="text-center p-3">Acervo de Livros</h1>
+              <div class="input-group mb-3 w-25 ms-1">
+                <input type="text" class="form-control" placeholder="Digite aqui o que você procura" aria-label="Pesquisar">
+                <button class="btn btn-light" type="button">Pesquisar</button>
+              </div>
+              <div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Título</th>
+                      <th scope="col">Categoria</th>
+                      <th scope="col">Quantidade no Acervo</th>
+                      <th scope="col">Emprestados</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Harry Potter</td>
+                      <td>Ficção</td>
+                      <td>10</td>
+                      <td>5</td>
+                    </tr>
+                    <!-- Adicionar mais livros conforme necessário -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Exibir Todos os Clientes -->
+            <div class="tab-pane fade" id="v-pills-view-clients" role="tabpanel" aria-labelledby="v-pills-view-clients-tab" tabindex="0">
+              <h1 class="text-center p-3">Lista de Clientes</h1>
+              <div class="input-group mb-3 w-25 ms-1">
+                <input type="text" class="form-control" placeholder="Digite aqui o que você procura" aria-label="Pesquisar Cliente">
+                <button class="btn btn-light" type="button">Pesquisar</button>
+              </div>
+              <div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Sobrenome</th>
+                      <th scope="col">Data de Nascimento</th>
+                      <th scope="col">CPF</th>
+                      <th scope="col">Endereço</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>01/01/1990</td>
+                      <td>123.456.789-00</td>
+                      <td>Rua Exemplo, 123</td>
+                    </tr>
+                    <!-- Adicionar mais clientes conforme necessário -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Realizar Empréstimo -->
+            <div class="tab-pane fade" id="v-pills-loan-book" role="tabpanel" aria-labelledby="v-pills-loan-book-tab" tabindex="0">
+                <div class="container-cadastro d-flex">
+                    <h1 class="text-center p-3">Realizar Empréstimo</h1>
+                    <div class="mb-3">
+                        <label for="livro-id" class="form-label">ID do Livro</label>
+                        <input type="number" class="form-control" id="livro-id" placeholder="ID do livro">
+                    </div>
+                    <div class="mb-3">
+                        <label for="usuario-id" class="form-label">ID do Usuário</label>
+                        <input type="number" class="form-control" id="usuario-id" placeholder="ID do usuário">
+                    </div>
+                    <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3">Realizar Empréstimo</button>
+                    <div id="mensagem-emprestimo" class="alert alert-success mt-3" style="display: none;">
+                        <strong>Empréstimo realizado!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Realizar Devolução -->
+            <div class="tab-pane fade" id="v-pills-return-book" role="tabpanel" aria-labelledby="v-pills-return-book-tab" tabindex="0">
+                <div class="container-cadastro d-flex">
+                    <h1 class="text-center p-3">Realizar Devolução</h1>
+                    <div class="mb-3">
+                        <label for="livro-id-devolucao" class="form-label">ID do Livro</label>
+                        <input type="number" class="form-control" id="livro-id-devolucao" placeholder="ID do livro">
+                    </div>
+                    <div class="mb-3">
+                        <label for="usuario-id-devolucao" class="form-label">ID do Usuário</label>
+                        <input type="number" class="form-control" id="usuario-id-devolucao" placeholder="ID do usuário">
+                    </div>
+                    <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3">Realizar Devolução</button>
+                    <div id="mensagem-devolucao" class="alert alert-success mt-3" style="display: none;">
+                        <strong>Devolução realizada!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configurações da Conta -->
+            <div class="tab-pane fade " id="v-pills-account-settings" role="tabpanel" aria-labelledby="v-pills-account-settings-tab" tabindex="0">
+              <div class="container mt-6 text-white container-cadastro">
+                <h2 class="mb-4 p-3">Configurações da Conta</h2>
+
+                 <!-- Nome do Usuário -->
+                <div class="mb-4">
+                  <p><strong>Nome do Usuário:</strong> João da Silva</p>
+                  <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarNome" aria-expanded="false" aria-controls="editarNome">Editar Nome</button>
+                  <div class="collapse mt-2" id="editarNome">
+                    <input type="text" class="form-control mb-2" placeholder="Digite o novo nome" id="inputNome">
+                    <button class="btn btn-success" onclick="salvarNome()">Salvar</button>
+                  </div>
+                </div>
+
+                <!-- E-mail -->
+                <div class="mb-4">
+                  <p><strong>Email:</strong> joao@email.com</p>
+                  <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarEmail" aria-expanded="false" aria-controls="editarEmail">Editar Email</button>
+                  <div class="collapse mt-2" id="editarEmail">
+                    <input type="email" class="form-control mb-2" placeholder="Digite o novo email" id="inputEmail">
+                    <button class="btn btn-success" onclick="salvarEmail()">Salvar</button>
+                  </div>
+                </div>
+
+                <!-- Senha -->
+                <div class="mb-4">
+                  <p><strong>Senha:</strong> ********</p>
+                  <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarSenha" aria-expanded="false" aria-controls="editarSenha">Alterar Senha</button>
+                  <div class="collapse mt-2" id="editarSenha">
+                    <input type="password" class="form-control mb-2" placeholder="Digite a nova senha" id="inputSenha">
+                    <input type="password" class="form-control mb-2" placeholder="Confirme a nova senha" id="inputConfirmarSenha">
+                    <button class="btn btn-success" onclick="salvarSenha()">Salvar</button>
+                  </div>
+                </div>
+
+                <!-- Nome da Biblioteca -->
+                <div class="mb-4">
+                  <p><strong>Nome da Biblioteca:</strong> Biblioteca Central</p>
+                  <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarBiblioteca" aria-expanded="false" aria-controls="editarBiblioteca">Editar Nome da Biblioteca</button>
+                  <div class="collapse mt-2" id="editarBiblioteca">
+                    <input type="text" class="form-control mb-2" placeholder="Novo nome da biblioteca" id="inputBiblioteca">
+                    <button class="btn btn-success" onclick="salvarBiblioteca()">Salvar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/script-menu.js"></script>
+</body>
+</html>

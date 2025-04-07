@@ -1,0 +1,123 @@
+/* Corrigir a posição da imagem de fundo */
+.img-container {
+    background-image: url(../images/library-background.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 400vh;
+    height: 100vh;
+    position: relative;
+}
+
+/* Ajustar a sobreposição de texto */
+.text-overlay {
+    font-family: 'Times New Roman';
+    font-style: italic;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    color: white;
+    font-size: 100px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px 0;
+    border-radius: 5px;
+}
+
+
+/* Form container */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto; /* Centralizar na tela */
+    position: relative;
+    z-index: 10; /* Garantir que fique acima da imagem de fundo */
+    padding: 30px;
+}
+
+/* A classe para a imagem do ícone */
+.icon-img {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    opacity: 0.75;
+    height: 150px;
+    width: 150px;
+}
+
+.body-image-cadastro {
+    background-image: url(../images/background-cadastro.jpg);
+    background-position: center;
+}
+
+/* Ajustando o formulário */
+.container-cadastro-formulario {
+    width: 50vh;
+    height: auto;
+    background-color: rgb(34, 34, 34);
+    padding: 30px;
+    border-radius: 20px;
+    position: relative;
+}
+
+/* Ajustando o título do formulário */
+.title-container {
+    margin-bottom: 3px;
+    font-size: 50px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+    width: 100%; 
+    overflow-x: hidden;
+    overflow-y: hidden; 
+}
+
+.container-menu-nav {
+    position: fixed;
+    width: 15vw;
+    height: 100vh;
+    margin-top: 5vh;
+}
+
+.container-conteudo-menu {
+    margin-left: 15vw; 
+    background-color: rgb(43, 43, 43);
+    position: relative;
+    width: calc(100vw - 15vw); 
+    height: 100vh; 
+}
+
+.nav-link {
+    font-size: 1.5rem;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.container-cadastro {
+    width: 50vh;
+    font-size: large;
+    height: auto;
+    background-color: rgb(34, 34, 34);
+    display: flex;
+    flex-direction: column; 
+    margin-left: 30vw;
+    padding: 30px;
+    border-radius: 20px;
+    position: absolute;
+    margin-top: 12vh;
+}
+
+.background-cadastro-usuario {
+    background-image: url(../images/background-cadastro-usuario.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.background-cadastro-livro {
+    background-image: url(../images/background-book.jpg);
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+}
