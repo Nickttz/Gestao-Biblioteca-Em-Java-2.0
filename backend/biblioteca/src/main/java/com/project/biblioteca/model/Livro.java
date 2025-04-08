@@ -8,7 +8,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "livro")
 public class Livro {
@@ -39,43 +43,4 @@ public class Livro {
     
     public Livro() {}
     
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    public String getTituloDoLivro() {
-        return this.tituloDoLivro;
-    }
-
-    public void setTituloDoLivro(String tituloDoLivro) {
-        this.tituloDoLivro = tituloDoLivro;
-    }
-    
-    public String getCategoria(){
-        return this.categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public int getQuantidade() {
-        return this.quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public int getEmprestados() {
-        return this.emprestados;
-    }
-
-    public void setEmprestados(int emprestados) {
-        this.emprestados = emprestados;
-    }
 }

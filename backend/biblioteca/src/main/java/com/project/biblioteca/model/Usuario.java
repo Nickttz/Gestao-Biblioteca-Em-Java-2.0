@@ -15,7 +15,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -56,83 +60,4 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobreNome() {
-        return sobreNome;
-    }
-
-    public void setSobreNome(String sobreNome) {
-        this.sobreNome = sobreNome;
-    }
-
-    public GregorianCalendar getDataNasc() {
-        return DataNasc;
-    }
-
-    public void setDataNasc(GregorianCalendar dataNasc) {
-        DataNasc = dataNasc;
-    }
-
-    public String getCPF() {
-        return CPF;
-    }
-
-    public void setCPF(String cPF) {
-        CPF = cPF;
-    }
-
-    public int getMaxLivro() {
-        return maxLivro;
-    }
-
-    public void setMaxLivro(int maxLivro) {
-        this.maxLivro = maxLivro;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public UsuarioGestor getConta() {
-        return conta;
-    }
-
-    public void setConta(UsuarioGestor conta) {
-        this.conta = conta;
-    }
-
-    public List<Livro> getLivros() {
-        return livros;
-    }
-
-    public void setLivros(List<Livro> livros) {
-        this.livros = livros;
-    }
 }

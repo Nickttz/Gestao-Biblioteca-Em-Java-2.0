@@ -18,18 +18,27 @@ function criarJSON() {
 }
 
 function enviarJSON(jsonDados) {
-    fetch('http://localhost:8081', {
+    fetch('http://localhost:8081/usuarios/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: jsonDados
     })
-    .then(function(res) {
-      console.log('Resposta do servidor:', res); 
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Login inválido");
+      }
     })
-    .catch(function(err) {
-      console.log('Erro ao enviar os dados:', err); 
+    .then(data => {
+      console.log("Token:", data.token);
+      window.location.href = "pages/menu.html";
+    })
+    .catch(error => {
+      console.error("Erro:", error);
+      alert("Erro ao logar: " + error.message);
     });
 }
 

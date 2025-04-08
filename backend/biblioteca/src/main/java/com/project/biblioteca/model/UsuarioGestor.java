@@ -10,7 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "usuario_gestor")
 public class UsuarioGestor {
@@ -52,75 +56,4 @@ public class UsuarioGestor {
 
     public UsuarioGestor() {}
 
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCpf() {
-        return this.cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return this.sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return this.telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getSenha() {
-        return this.senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public int getMaxDias() {
-        return this.max_dias;
-    }
-
-    public void setMaxDias(int max_dias) {
-        this.max_dias = max_dias;
-    }
-
-    public int getMaxLivros() {
-        return this.max_livros;
-    }
-
-    public void setMaxLivros(int max_livros) {
-        this.max_livros = max_livros;
-    }
 }
