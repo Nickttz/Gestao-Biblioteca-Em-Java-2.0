@@ -11,6 +11,7 @@ import com.project.biblioteca.model.UsuarioGestor;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -52,19 +53,29 @@ public class TokenUtil {
 
     public static Authentication validate (HttpServletRequest request) {
         String token = request.getHeader(HEADER);
-
-        Jws<Claims> jwsClaims = Jwts.parserBuilder()
-            .setSigningKey(Keys.hmacShaKeyFor(SECRECT_KEY.getBytes()))
-            .build()
-            .parseClaimsJws(token);
+        
+        if (token == null || !token.startsWith(PREFIX)) return null;
     
-        String cpf = jwsClaims.getBody().getSubject();
-        String issuer = jwsClaims.getBody().getIssuer();
-        Date expiration = jwsClaims.getBody().getExpiration();
-
-        if (isExpirationValid(expiration) && isEmissiorValid(issuer) && isUser(cpf)) {
-            return new UsernamePasswordAuthenticationToken(cpf, null, Collections.emptyList());
+        token = token.replace(PREFIX, "");
+    
+        try {
+            Jws<Claims> jwsClaims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(SECRECT_KEY.getBytes()))
+                .build()
+                .parseClaimsJws(token);
+    
+            String cpf = jwsClaims.getBody().getSubject();
+            String issuer = jwsClaims.getBody().getIssuer();
+            Date expiration = jwsClaims.getBody().getExpiration();
+    
+            if (isExpirationValid(expiration) && isEmissiorValid(issuer) && isUser(cpf)) {
+                return new UsernamePasswordAuthenticationToken(cpf, null, Collections.emptyList());
+            }
+            return null;
+    
+        } catch (JwtException | IllegalArgumentException e) {
+            System.out.println("Erro ao validar token: " + e.getMessage());
+            return null;
         }
-        return null;
     }
 }

@@ -22,7 +22,7 @@
                   <button class="nav-link active" id="v-pills-register-client-tab" data-bs-toggle="pill" data-bs-target="#v-pills-register-client" type="button" role="tab" aria-controls="v-pills-register-client" aria-selected="true">Cadastrar Cliente</button>
                   <button class="nav-link" id="v-pills-register-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-register-book" type="button" role="tab" aria-controls="v-pills-register-book" aria-selected="false">Cadastrar Livro</button>
                   <button class="nav-link" id="v-pills-view-books-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-books" type="button" role="tab" aria-controls="v-pills-view-books" aria-selected="false">Exibir Acervo de Livros</button>
-                  <button class="nav-link" id="v-pills-view-clients-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-clients" type="button" role="tab" aria-controls="v-pills-view-clients" aria-selected="false">Exibir Todos os Clientes</button>
+                  <button class="nav-link" id="v-pills-view-clients-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-clients" type="button" role="tab" aria-controls="v-pills-view-clients" aria-selected="false" onclick="carregarClientes()">Exibir Todos os Clientes</button>
                   <button class="nav-link" id="v-pills-loan-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-loan-book" type="button" role="tab" aria-controls="v-pills-loan-book" aria-selected="false">Realizar Empréstimo</button>
                   <button class="nav-link" id="v-pills-return-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-return-book" type="button" role="tab" aria-controls="v-pills-return-book" aria-selected="false">Realizar Devolução</button>
                   <button class="nav-link" id="v-pills-account-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-account-settings" type="button" role="tab" aria-controls="v-pills-account-settings" aria-selected="false">Configurações da Conta</button>
@@ -56,7 +56,11 @@
                   <label for="cliente-endereco" class="form-label">Endereço</label>
                   <input type="text" class="form-control" id="cliente-endereco">
                 </div>
-                <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3">Cadastrar Cliente</button>
+                <div class="mb-3">
+                  <label for="cliente-telefone" class="form-label">Telefone</label>
+                  <input type="text" class="form-control" id="cliente-telefone">
+                </div>
+                <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3" onclick="criarJSONCadastroCliente()">Cadastrar Cliente</button>
               </div>
             </div>
 
@@ -134,16 +138,7 @@
                       <th scope="col">Endereço</th>
                     </tr>
                   </thead>
-                  <tbody class="table-group-divider">
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>01/01/1990</td>
-                      <td>123.456.789-00</td>
-                      <td>Rua Exemplo, 123</td>
-                    </tr>
-                  </tbody>
+                  <tbody class="table-group-divider"></tbody>
                 </table>
               </div>
             </div>
@@ -236,6 +231,7 @@
           </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="js/script-menu.js"></script>
+    <script src="../js/script-menu-cadastro-cliente.js"></script>
+    <script src="../js/script-menu-listar-cliente.js"></script>
 </body>
 </html>

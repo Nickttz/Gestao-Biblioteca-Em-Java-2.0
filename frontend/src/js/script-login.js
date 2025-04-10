@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('submit').addEventListener('click', criarJSON);
+  document.getElementById('login').addEventListener('click', logar);
 });
 
-function criarJSON() {
+function logar() {
+
     const email = document.getElementById("floatingInput").value;
     const senha = document.getElementById("floatingPassword").value;
 
@@ -17,29 +18,29 @@ function criarJSON() {
     clear();
 }
 
-function enviarJSON(jsonDados) {
-    fetch('http://localhost:8081/usuarios/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: jsonDados
-    })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
+async function enviarJSON(jsonDados) {
+  try {  
+      const response = await fetch('http://localhost:8081/usuarios/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonDados
+      });
+      if (response.ok) {
+        const data = await response.json(); // capturar o token
+        console.log("Resposta do servidor:", response.status);
+        localStorage.setItem("token", data.token); // armazenar o token
+        console.log(data.token);
+        window.location.href = "pages/menu.html";
       } else {
-        throw new Error("Login inválido");
-      }
-    })
-    .then(data => {
-      console.log("Token:", data.token);
-      window.location.href = "pages/menu.html";
-    })
-    .catch(error => {
-      console.error("Erro:", error);
-      alert("Erro ao logar: " + error.message);
-    });
+        alert("Email e/ou senha inválidos");
+        console.log("Resposta do servidor: ", response.status);
+      }  
+  } catch (err) {
+      console.error("Erro ao enviar os dados:", err);
+      alert("Erro de conexão com o servidor.");
+  }
 }
 
 function clear() {

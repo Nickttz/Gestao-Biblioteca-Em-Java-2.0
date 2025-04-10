@@ -29,6 +29,7 @@ public class UsuarioGestorService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
+    // Teste //
     public List<UsuarioGestor> listarUsuarios() {
         List<UsuarioGestor> lista = repository.findAll();
         return lista;

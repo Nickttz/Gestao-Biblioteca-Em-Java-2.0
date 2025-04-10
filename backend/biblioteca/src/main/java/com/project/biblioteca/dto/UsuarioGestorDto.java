@@ -9,9 +9,4 @@ public class UsuarioGestorDto {
     
     private String email;
     private String senha;
-
-    public UsuarioGestorDto () {
-        this.email = email;
-        this.senha = senha;
-    }
 }

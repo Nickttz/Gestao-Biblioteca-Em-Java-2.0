@@ -67,27 +67,28 @@ function criarJSONCadastro() {
     clear();
 }
 
-function enviarJSON(jsonDados) {
-    fetch('http://localhost:8081/cadastro', {
+async function enviarJSON (jsonDados) {
+    try {
+      const response = await fetch('http://localhost:8081/cadastro', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
-        body: jsonDados
-    })
-    .then(function (res) {
-        console.log('Resposta do servidor:', res);
-        if (res.ok) {
+        body: jsonDados,
+      });
+  
+      if (response.ok) {
             alert("Cadastro realizado com sucesso!");
-        } else {
+            console.log('Resposta do servidor:', await response.json());
+      } else {
             alert("Erro ao cadastrar. Verifique os dados e tente novamente.");
-        }
-    })
-    .catch(function (err) {
+            console.warn("Resposta com erro:", response.status);
+      }
+    } catch (err) {
         console.error('Erro ao enviar os dados:', err);
         alert("Erro de conexão com o servidor.");
-    });
-}
+    }
+  }
 
 function clear() {
     document.getElementById("emailInput").value = '';

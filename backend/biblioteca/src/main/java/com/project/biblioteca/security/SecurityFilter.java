@@ -17,9 +17,17 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        if(request.getHeader("Authorization") != null) {
-            Authentication auth = TokenUtil.validate(request);
-            SecurityContextHolder.getContext().setAuthentication(auth);
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            try {
+                Authentication auth = TokenUtil.validate(request);
+                if (auth != null) {
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                }
+            } catch (Exception e) {
+                System.out.println("Token inválido: " + e.getMessage());
+            }
         }
         filterChain.doFilter(request, response);
     }
