@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.biblioteca.dto.UsuarioDto;
-import com.project.biblioteca.model.Usuario;
 import com.project.biblioteca.model.UsuarioGestor;
 import com.project.biblioteca.service.AuthHelperService;
 import com.project.biblioteca.service.UsuarioService;
@@ -35,16 +34,17 @@ public class UsuarioController {
     public ResponseEntity<?> cadastroCliente(@RequestBody UsuarioDto dtoUser, HttpServletRequest request) {
         UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
 
-        Usuario novoUsuario = userServ.cadastrar(dtoUser, gestor);
-        return ResponseEntity.status(201).body(novoUsuario);
+        userServ.cadastrar(dtoUser, gestor);
+        return ResponseEntity.status(201).body("Usuário cadastrado com sucesso!");
     }
 
     @GetMapping("/usuarios/lista_cliente")
     public ResponseEntity<?> listarCliente(HttpServletRequest request) {
         UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
 
-        List<Usuario> novoUsuario = userServ.listarUsuariosPorGestor(gestor);
-        return ResponseEntity.ok(novoUsuario);
+        List<UsuarioDto> listaUsuario = userServ.listarUsuariosPorGestor(gestor);
+        return ResponseEntity.ok(listaUsuario);
+
     }
 
     @DeleteMapping("/usuarios/deletar_cliente/{id}")

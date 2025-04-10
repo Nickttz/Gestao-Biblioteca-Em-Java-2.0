@@ -21,7 +21,7 @@ public class SecurityConfig {
             )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/cadastro", "/usuarios/login").permitAll()
-                .requestMatchers("/usuarios/cadastro_cliente").authenticated()
+                .requestMatchers("/usuarios/cadastro_cliente").hasRole("GESTOR")
                 .anyRequest().authenticated()
             );
 

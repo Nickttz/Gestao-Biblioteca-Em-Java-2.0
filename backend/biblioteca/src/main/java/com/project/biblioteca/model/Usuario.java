@@ -1,6 +1,6 @@
 package com.project.biblioteca.model;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -33,14 +33,14 @@ public class Usuario {
     private String nome;
 
     @Column(name="sobre_nome", nullable=false, length=100)
-    private String sobreNome;
+    private String sobrenome;
 
     @Temporal(TemporalType.DATE)
     @Column(name="data_nasc", nullable=false)
-    private GregorianCalendar DataNasc;
+    private LocalDate dataNascimento;
 
     @Column(name="cpf", nullable=false, unique=true, length=14)
-    private String CPF;
+    private String Cpf;
 
     @Column(name="max_livro", nullable=false)
     private int maxLivro;

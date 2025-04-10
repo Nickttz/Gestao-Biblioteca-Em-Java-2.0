@@ -2,6 +2,7 @@ package com.project.biblioteca.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,9 +28,9 @@ public class UsuarioService {
         if(gestor != null) {
             Usuario usuario = new Usuario();
             usuario.setNome(dto.getNome());
-            usuario.setSobreNome(dto.getSobreNome());
-            usuario.setDataNasc(dto.getDataNasc());
-            usuario.setCPF(dto.getCpf());
+            usuario.setSobrenome(dto.getSobrenome());
+            usuario.setDataNascimento(dto.getDataNascimento());
+            usuario.setCpf(dto.getCpf());
             usuario.setEndereco(dto.getEndereco());
             usuario.setTelefone(dto.getTelefone());
             usuario.setMaxLivro(gestor.getMax_livros());
@@ -39,8 +40,19 @@ public class UsuarioService {
         return null;
     }
 
-    public List<Usuario> listarUsuariosPorGestor(UsuarioGestor user) {
-        return repositoryUser.findByConta(user);
+    public List<UsuarioDto> listarUsuariosPorGestor(UsuarioGestor user) {
+        List<Usuario> usuarios = repositoryUser.findByConta(user);
+
+        return usuarios.stream().map(usuario -> {
+            UsuarioDto dto = new UsuarioDto();
+            dto.setNome(usuario.getNome());
+            dto.setSobrenome(usuario.getSobrenome());
+            dto.setCpf(usuario.getCpf());
+            dto.setEndereco(usuario.getEndereco());
+            dto.setTelefone(usuario.getTelefone());
+            dto.setDataNascimento(usuario.getDataNascimento());
+            return dto;
+        }).collect(Collectors.toList());
     }
     
     public Boolean deletarUsuario (UsuarioGestor usuario, Integer id) {

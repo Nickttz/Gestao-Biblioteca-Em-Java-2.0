@@ -107,7 +107,7 @@
                       <th scope="col">Emprestados</th>
                     </tr>
                   </thead>
-                  <tbody class="table-group-divider">
+                  <tbody id ="tabela_livro" class="table-group-divider">
                     <tr>
                       <th scope="row">1</th>
                       <td>Harry Potter</td>
@@ -120,11 +120,11 @@
               </div>
             </div>
 
+             <!-- Exibir Todos os Clientes -->
             <div class="tab-pane fade" id="v-pills-view-clients" role="tabpanel" aria-labelledby="v-pills-view-clients-tab" tabindex="0">
               <h1 class="text-center p-3">Lista de Clientes</h1>
               <div class="input-group mb-3 w-25 ms-1">
-                <input type="text" class="form-control" placeholder="Digite aqui o que você procura" aria-label="Pesquisar Cliente">
-                <button class="btn btn-light" type="button">Pesquisar</button>
+                <input type="text" class="form-control" placeholder="Digite aqui o que você procura" aria-label="Pesquisar Cliente" id="input-pesquisa-cliente">
               </div>
               <div>
                 <table class="table">
@@ -138,7 +138,7 @@
                       <th scope="col">Endereço</th>
                     </tr>
                   </thead>
-                  <tbody class="table-group-divider"></tbody>
+                  <tbody id="tabela_cliente" class="table-group-divider"></tbody>
                 </table>
               </div>
             </div>

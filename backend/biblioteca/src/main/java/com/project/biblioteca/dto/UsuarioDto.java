@@ -1,6 +1,8 @@
 package com.project.biblioteca.dto;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +12,9 @@ import lombok.Setter;
 public class UsuarioDto {
 
     private String nome;
-    private String sobreNome;
-    private GregorianCalendar dataNasc;
+    private String sobrenome;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataNascimento;
     private String cpf;
     private String endereco;
     private String telefone;

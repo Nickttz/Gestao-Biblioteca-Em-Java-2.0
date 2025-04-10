@@ -41,7 +41,6 @@ async function enviarJSON (jsonDados) {
   
       if (response.ok) {
             alert("Cadastro realizado com sucesso!");
-            console.log('Resposta do servidor:', await response.json());
       } else {
             alert("Erro ao cadastrar. Verifique os dados e tente novamente.");
             console.warn("Resposta com erro:", response.status);

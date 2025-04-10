@@ -1,11 +1,13 @@
 package com.project.biblioteca.security;
 
 import java.security.Key;
-import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.project.biblioteca.model.UsuarioGestor;
 
@@ -31,6 +33,7 @@ public class TokenUtil {
         String token = Jwts.builder()
             .setSubject(usuario.getCpf())
             .setIssuer(EMISSOR)
+            .claim("roles", List.of("ROLE_GESTOR"))
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
             .signWith(secretKey, SignatureAlgorithm.HS256)
@@ -69,8 +72,10 @@ public class TokenUtil {
             Date expiration = jwsClaims.getBody().getExpiration();
     
             if (isExpirationValid(expiration) && isEmissiorValid(issuer) && isUser(cpf)) {
-                return new UsernamePasswordAuthenticationToken(cpf, null, Collections.emptyList());
+                List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_GESTOR"));
+                return new UsernamePasswordAuthenticationToken(cpf, null, authorities);
             }
+
             return null;
     
         } catch (JwtException | IllegalArgumentException e) {

@@ -13,7 +13,8 @@ async function carregarClientes() {
         }
 
         const clientes = await response.json();
-        const tbody = document.querySelector(".table-group-divider");
+        console.log("Clientes recebidos:", clientes);
+        const tbody = document.getElementById("tabela_cliente");
         tbody.innerHTML = "";
         clientes.forEach((cliente, index) => {
             const tr = document.createElement("tr");
@@ -43,3 +44,19 @@ function formatarData(dataISO) {
     } 
     return "";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("input-pesquisa-cliente");
+  
+    input.addEventListener("input", function () {
+      const termo = input.value.toLowerCase();
+      const linhas = document.querySelectorAll("#tabela_cliente tr");
+  
+      linhas.forEach((linha) => {
+        const texto = linha.textContent.toLowerCase();
+        const visivel = texto.includes(termo);
+        linha.style.display = visivel ? "" : "none";
+      });
+    });
+  });
+  
