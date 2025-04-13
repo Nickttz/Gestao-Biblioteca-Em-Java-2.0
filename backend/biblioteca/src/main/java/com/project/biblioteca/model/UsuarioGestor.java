@@ -1,5 +1,6 @@
 package com.project.biblioteca.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -8,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -48,11 +50,14 @@ public class UsuarioGestor {
     @Column(name = "max_livros")
     private int max_livros;
 
-    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Livro> livros;
+    @ManyToMany(mappedBy = "contas", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Livro> livros = new ArrayList<>();
 
-    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Usuario> usuarios;
+    @ManyToMany(mappedBy = "contas", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Usuario> usuarios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "contas", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Emprestimo> emprestimos = new ArrayList<>();
 
     public UsuarioGestor() {}
 

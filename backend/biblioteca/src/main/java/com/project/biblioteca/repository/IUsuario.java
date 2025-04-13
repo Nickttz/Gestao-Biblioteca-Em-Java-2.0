@@ -1,15 +1,16 @@
 package com.project.biblioteca.repository;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.project.biblioteca.model.Usuario;
 import com.project.biblioteca.model.UsuarioGestor;
 
-public interface IUsuario extends JpaRepository<Usuario, Integer> {
+public interface IUsuario extends JpaRepository<Usuario, UUID> {
     
-    List<Usuario> findByConta(UsuarioGestor gestor);
+    List<Usuario> findByContas(UsuarioGestor gestor);
 
-    Optional<Usuario> findByIdAndConta(Integer id, UsuarioGestor conta);
+    Optional<Usuario> findByIdAndContas(UUID id, UsuarioGestor conta);
 }

@@ -21,7 +21,7 @@
               <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                   <button class="nav-link active" id="v-pills-register-client-tab" data-bs-toggle="pill" data-bs-target="#v-pills-register-client" type="button" role="tab" aria-controls="v-pills-register-client" aria-selected="true">Cadastrar Cliente</button>
                   <button class="nav-link" id="v-pills-register-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-register-book" type="button" role="tab" aria-controls="v-pills-register-book" aria-selected="false">Cadastrar Livro</button>
-                  <button class="nav-link" id="v-pills-view-books-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-books" type="button" role="tab" aria-controls="v-pills-view-books" aria-selected="false">Exibir Acervo de Livros</button>
+                  <button class="nav-link" id="v-pills-view-books-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-books" type="button" role="tab" aria-controls="v-pills-view-books" aria-selected="false" onclick="carregarLivros()">Exibir Acervo de Livros</button>
                   <button class="nav-link" id="v-pills-view-clients-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-clients" type="button" role="tab" aria-controls="v-pills-view-clients" aria-selected="false" onclick="carregarClientes()">Exibir Todos os Clientes</button>
                   <button class="nav-link" id="v-pills-loan-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-loan-book" type="button" role="tab" aria-controls="v-pills-loan-book" aria-selected="false">Realizar Empréstimo</button>
                   <button class="nav-link" id="v-pills-return-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-return-book" type="button" role="tab" aria-controls="v-pills-return-book" aria-selected="false">Realizar Devolução</button>
@@ -85,7 +85,7 @@
                   <label for="livro-quantidade" class="form-label">Quantidade do Livro</label>
                   <input type="number" class="form-control" id="livro-quantidade" placeholder="Quantidade a ser acrescentada no acervo">
                 </div>
-                <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3">Cadastrar Livro</button>
+                <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3" onclick="criarJSONCadastroLivro()">Cadastrar Livro</button>
               </div>
             </div>
 
@@ -93,29 +93,21 @@
             <div class="tab-pane fade" id="v-pills-view-books" role="tabpanel" aria-labelledby="v-pills-view-books-tab" tabindex="0">
               <h1 class="text-center p-3">Acervo de Livros</h1>
               <div class="input-group mb-3 w-25 ms-1">
-                <input type="text" class="form-control" placeholder="Digite aqui o que você procura" aria-label="Pesquisar">
-                <button class="btn btn-light" type="button">Pesquisar</button>
+                <input type="text" class="form-control" placeholder="Digite aqui o que você procura" aria-label="Pesquisar" id="input-pesquisa-livro">
               </div>
               <div>
                 <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
+                      <th scope="col">Id</th>
                       <th scope="col">Título</th>
                       <th scope="col">Categoria</th>
                       <th scope="col">Quantidade no Acervo</th>
                       <th scope="col">Emprestados</th>
                     </tr>
                   </thead>
-                  <tbody id ="tabela_livro" class="table-group-divider">
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Harry Potter</td>
-                      <td>Ficção</td>
-                      <td>10</td>
-                      <td>5</td>
-                    </tr>
-                  </tbody>
+                  <tbody id="tabela_livro" class="table-group-divider"></tbody>
                 </table>
               </div>
             </div>
@@ -131,11 +123,14 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
+                      <th scope="col">Id</th>
                       <th scope="col">Nome</th>
                       <th scope="col">Sobrenome</th>
-                      <th scope="col">Data de Nascimento</th>
+                      <th scope="col">Data de nascimento</th>
+                      <th scope="col">Telefone</th>
                       <th scope="col">CPF</th>
                       <th scope="col">Endereço</th>
+                      <th scope="col">Emprestimos</th>
                     </tr>
                   </thead>
                   <tbody id="tabela_cliente" class="table-group-divider"></tbody>
@@ -149,16 +144,17 @@
                     <h1 class="text-center p-3">Realizar Empréstimo</h1>
                     <div class="mb-3">
                         <label for="livro-id" class="form-label">ID do Livro</label>
-                        <input type="number" class="form-control" id="livro-id" placeholder="ID do livro">
+                        <input type="text" class="form-control" id="livro-id-emprestimo" placeholder="ID do livro">
                     </div>
                     <div class="mb-3">
                         <label for="usuario-id" class="form-label">ID do Usuário</label>
-                        <input type="number" class="form-control" id="usuario-id" placeholder="ID do usuário">
+                        <input type="text" class="form-control" id="cliente-id-emprestimo" placeholder="ID do usuário">
                     </div>
-                    <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3">Realizar Empréstimo</button>
-                    <div id="mensagem-emprestimo" class="alert alert-success mt-3" style="display: none;">
-                        <strong>Empréstimo realizado!</strong>
+                    <div class="mb-3">
+                      <label for="livro-id" class="form-label">Data de devolução</label>
+                      <input type="date" class="form-control" id="devolucao-data">
                     </div>
+                    <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3" onclick="criarJSONemprestimo()">Realizar Empréstimo</button>
                 </div>
             </div>
 
@@ -168,13 +164,13 @@
                     <h1 class="text-center p-3">Realizar Devolução</h1>
                     <div class="mb-3">
                         <label for="livro-id-devolucao" class="form-label">ID do Livro</label>
-                        <input type="number" class="form-control" id="livro-id-devolucao" placeholder="ID do livro">
+                        <input type="text" class="form-control" id="livro-id-devolucao" placeholder="ID do livro">
                     </div>
                     <div class="mb-3">
-                        <label for="usuario-id-devolucao" class="form-label">ID do Usuário</label>
-                        <input type="number" class="form-control" id="usuario-id-devolucao" placeholder="ID do usuário">
+                        <label for="usuario-id-devolucao" class="form-label">ID do Cliente</label>
+                        <input type="text" class="form-control" id="cliente-id-devolucao" placeholder="ID do usuário">
                     </div>
-                    <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3">Realizar Devolução</button>
+                    <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3" onclick="criarJSONdevolucao()">Realizar Devolução</button>
                     <div id="mensagem-devolucao" class="alert alert-success mt-3" style="display: none;">
                         <strong>Devolução realizada!</strong>
                     </div>
@@ -233,5 +229,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../js/script-menu-cadastro-cliente.js"></script>
     <script src="../js/script-menu-listar-cliente.js"></script>
+    <script src="../js/script-menu-listar-livro.js"></script>
+    <script src="../js/script-menu-cadastrar-livro.js"></script>
+    <script src="../js/script-menu-emprestimo.js"></script>
+    <script src="../js/script-menu-devolucao.js"></script>
 </body>
 </html>

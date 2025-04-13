@@ -1,7 +1,9 @@
 package com.project.biblioteca.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -10,7 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -25,9 +28,9 @@ import lombok.Setter;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable=false)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @Column(name="nome", nullable=false, length=100)
     private String nome;
@@ -51,12 +54,19 @@ public class Usuario {
     @Column(name="telefone", nullable=true, length=20)
     private String telefone;
 
-    @ManyToOne
-    @JoinColumn(name = "id_conta", nullable = false)
-    private UsuarioGestor conta;
+    @OneToMany(mappedBy = "cliente")
+    private List<Emprestimo> emprestimos;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Livro> livros;
+    @ManyToMany
+    @JoinTable(
+        name = "usuario_conta",
+        joinColumns = @JoinColumn(name = "id_usuario"),
+        inverseJoinColumns = @JoinColumn(name = "id_conta")
+    )
+    private List<UsuarioGestor> contas = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "usuarios", cascade = CascadeType.ALL)
+    private List<Livro> livros = new ArrayList<>();
 
     public Usuario() {}
 

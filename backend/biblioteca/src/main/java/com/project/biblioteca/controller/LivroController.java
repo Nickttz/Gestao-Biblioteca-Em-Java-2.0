@@ -1,6 +1,7 @@
 package com.project.biblioteca.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.biblioteca.dto.LivroDto;
-import com.project.biblioteca.model.Livro;
 import com.project.biblioteca.model.UsuarioGestor;
 import com.project.biblioteca.service.AuthHelperService;
 import com.project.biblioteca.service.LivroService;
@@ -31,24 +31,24 @@ public class LivroController {
         this.authHelper = authHelper;
     }
 
-    @PostMapping("/livros/cadastrar")
+    @PostMapping("/usuarios/livros/cadastrar_livro")
     public ResponseEntity<?> cadastrarLivro(@RequestBody LivroDto dto, HttpServletRequest request) {
         UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
         
-        Livro novoLivro = livroService.cadastrar(dto, gestor);
-        return ResponseEntity.status(201).body(novoLivro);
+        livroService.cadastrar(dto, gestor);
+        return ResponseEntity.status(201).body("Livro cadastrado com sucesso");
     }
 
-    @GetMapping("/livros/listar")
+    @GetMapping("/usuarios/livros/listar_livro")
     public ResponseEntity<?> listarLivros(HttpServletRequest request) {
         UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
         
-        List<Livro> livros = livroService.listarPorGestor(gestor);
+        List<LivroDto> livros = livroService.listarPorGestor(gestor);
         return ResponseEntity.ok(livros);
     }
 
-    @DeleteMapping("/livros/deletar/{id}")
-    public ResponseEntity<?> deletarLivro(@PathVariable Integer id, HttpServletRequest request) {
+    @DeleteMapping("/usuarios/livros/deletar_livro/{id}")
+    public ResponseEntity<?> deletarLivro(@PathVariable UUID id, HttpServletRequest request) {
         UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
         
         if (livroService.deletarLivro(gestor, id)) {

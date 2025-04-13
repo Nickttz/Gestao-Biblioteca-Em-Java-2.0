@@ -41,8 +41,10 @@ function criarJSONCadastro() {
     const sobrenome = document.getElementById("sobrenomeInput").value;
     const cpf = document.getElementById("cpfInput").value;
     const telefone = document.getElementById("telefoneInput").value;
+    const max_livros = document.getElementById("maxInput").value;
+    const max_dias = document.getElementById("maxInput").value;
 
-    if (!email || !senha || !nome || !sobrenome || !cpf || !telefone || !confirmarSenha) {
+    if (!email || !senha || !nome || !sobrenome || !cpf || !telefone || !confirmarSenha || !max_livros || !max_dias) {
         alert("Preencha todos os campos.");
         return;
     }
@@ -58,7 +60,9 @@ function criarJSONCadastro() {
         nome: nome,
         sobrenome: sobrenome,
         cpf: cpf,
-        telefone: telefone
+        telefone: telefone,
+        max_livros: max_livros,
+        max_dias: max_dias
     }
 
     const jsonDados = JSON.stringify(dados);
@@ -98,4 +102,6 @@ function clear() {
     document.getElementById("sobrenomeInput").value = '';
     document.getElementById("cpfInput").value = '';
     document.getElementById("telefoneInput").value = '';
+    document.getElementById("maxInput").value = '';
+    document.getElementById("maxInput").value = '';
 }

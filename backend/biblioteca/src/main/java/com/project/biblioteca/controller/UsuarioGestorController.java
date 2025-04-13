@@ -39,7 +39,7 @@ public class UsuarioGestorController {
         return ResponseEntity.status(201).body(usuarioGestorService.cadastrarUsuario(usuario));
     }
 
-    @PostMapping("/usuarios/login")
+    @PostMapping("/login")
     public ResponseEntity <Token> realizarLogin(@RequestBody UsuarioGestorDto usuario) {
         Token token = usuarioGestorService.gerarToken(usuario);
 

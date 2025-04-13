@@ -11,5 +11,4 @@ public interface IUsuarioGestor extends JpaRepository<UsuarioGestor, Integer> {
     UsuarioGestor findByEmail(String email);
 
     UsuarioGestor findByCpf(String cpfGestor);
-
 }

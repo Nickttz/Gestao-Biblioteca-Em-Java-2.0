@@ -20,7 +20,7 @@ function logar() {
 
 async function enviarJSON(jsonDados) {
   try {  
-      const response = await fetch('http://localhost:8081/usuarios/login', {
+      const response = await fetch('http://localhost:8081/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 package com.project.biblioteca.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,15 +31,15 @@ public class UsuarioController {
         this.authHelper = authHelper;
     }
 
-    @PostMapping("/usuarios/cadastro_cliente")
+    @PostMapping("/usuarios/clientes/cadastrar_cliente")
     public ResponseEntity<?> cadastroCliente(@RequestBody UsuarioDto dtoUser, HttpServletRequest request) {
         UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
 
         userServ.cadastrar(dtoUser, gestor);
-        return ResponseEntity.status(201).body("Usuário cadastrado com sucesso!");
+        return ResponseEntity.status(201).body("Cliente cadastrado com sucesso!");
     }
 
-    @GetMapping("/usuarios/lista_cliente")
+    @GetMapping("/usuarios/clientes/listar_cliente")
     public ResponseEntity<?> listarCliente(HttpServletRequest request) {
         UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
 
@@ -47,8 +48,8 @@ public class UsuarioController {
 
     }
 
-    @DeleteMapping("/usuarios/deletar_cliente/{id}")
-    public ResponseEntity<?> deletarCliente(@PathVariable Integer id, HttpServletRequest request) {
+    @DeleteMapping("/usuarios/clientes/deletar_cliente/{id}")
+    public ResponseEntity<?> deletarCliente(@PathVariable UUID id, HttpServletRequest request) {
         UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
 
         if (userServ.deletarUsuario(gestor, id)) {

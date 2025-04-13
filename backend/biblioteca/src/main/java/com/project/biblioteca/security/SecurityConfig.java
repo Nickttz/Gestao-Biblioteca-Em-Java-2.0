@@ -20,8 +20,8 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/cadastro", "/usuarios/login").permitAll()
-                .requestMatchers("/usuarios/cadastro_cliente").hasRole("GESTOR")
+                .requestMatchers("/cadastro", "/login").permitAll()
+                .requestMatchers("/usuarios/**").hasRole("GESTOR")
                 .anyRequest().authenticated()
             );
 

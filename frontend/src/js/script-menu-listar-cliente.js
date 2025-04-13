@@ -1,7 +1,7 @@
 async function carregarClientes() {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:8081/usuarios/lista_cliente", {
+        const response = await fetch("http://localhost:8081/usuarios/clientes/listar_cliente", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
@@ -20,14 +20,16 @@ async function carregarClientes() {
             const tr = document.createElement("tr");
 
             tr.innerHTML = `
-                <th scope="row">${index + 1}</th>
+                <th>${index + 1}</th>
+                <td>${cliente.id}</td>
                 <td>${cliente.nome}</td>
                 <td>${cliente.sobrenome}</td>
                 <td>${formatarData(cliente.dataNascimento)}</td>
+                <td>${cliente.telefone}</td>
                 <td>${cliente.cpf}</td>
                 <td>${cliente.endereco}</td>
+                <td>${(cliente.maxlivro)}</td>
             `;
-
             tbody.appendChild(tr);
         });
 
