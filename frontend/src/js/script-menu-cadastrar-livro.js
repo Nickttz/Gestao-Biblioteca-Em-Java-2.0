@@ -23,7 +23,6 @@ function criarJSONCadastroLivro() {
 async function enviarJSONLivro (jsonDados) {
     try {
       const token = localStorage.getItem("token");
-      console.log(token);
       const response = await fetch('http://localhost:8081/usuarios/livros/cadastrar_livro', {
         method: 'POST',
         headers: {

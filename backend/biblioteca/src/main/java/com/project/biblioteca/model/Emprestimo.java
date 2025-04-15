@@ -42,6 +42,10 @@ public class Emprestimo {
     private LocalDate dataDevolucao;
 
     @ManyToOne
-    @JoinColumn(name = "gestor_id", nullable = false)
-    private UsuarioGestor contas;
+    @JoinColumn(name = "id_gestor", nullable = false)
+    private UsuarioGestor conta;
+
+    @ManyToOne
+    @JoinColumn(name = "id_biblioteca")
+    private Biblioteca biblioteca;
 }

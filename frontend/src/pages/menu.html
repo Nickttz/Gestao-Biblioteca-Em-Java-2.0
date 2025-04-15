@@ -11,11 +11,44 @@
   <header class="bg-body-secondary text-white p-4 d-flex justify-content-between">
     <div>
       <div id="header-nome-biblioteca" class="fs-5">Nome da Biblioteca</div>
-      <div id="header-nome-usuario" class="fs-6">Nome do Usuário</div>
+      <div class="d-flex justify-content-start gap-1">
+        <div id="header-nome-usuario" class="fs-6">Nome do Usuário</div>
+        <div id="header-sobrenome-usuario" class="fs-6">Sobrenome do Usuário</div>
+      </div>
     </div>
     <h1>Biblioteca Digital</h1>
   </header>
     <main>
+        <!-- Modal de Cadastro de Biblioteca -->
+        <div class="modal fade" id="modalCadastroBiblioteca" tabindex="-1" aria-labelledby="modalCadastroBibliotecaLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalCadastroBibliotecaLabel">Configurar Biblioteca</h5>
+              </div>
+              <div class="modal-body">
+                <form id="form-cadastro-biblioteca">
+                  <div class="mb-3">
+                    <label for="nome-biblioteca" class="form-label">Nome da Biblioteca</label>
+                    <input type="text" class="form-control" id="nome-biblioteca" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="max-emprestimos" class="form-label">Máximo de Empréstimos</label>
+                    <input type="number" class="form-control" id="max-emprestimos" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="dias-tolerancia" class="form-label">Dias de Tolerância</label>
+                    <input type="number" class="form-control" id="dias-tolerancia" required>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-light" id="salvarBiblioteca">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="container-menu-nav">
             <div class="d-flex justify-content-start">
               <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -23,6 +56,7 @@
                   <button class="nav-link" id="v-pills-register-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-register-book" type="button" role="tab" aria-controls="v-pills-register-book" aria-selected="false">Cadastrar Livro</button>
                   <button class="nav-link" id="v-pills-view-books-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-books" type="button" role="tab" aria-controls="v-pills-view-books" aria-selected="false" onclick="carregarLivros()">Exibir Acervo de Livros</button>
                   <button class="nav-link" id="v-pills-view-clients-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view-clients" type="button" role="tab" aria-controls="v-pills-view-clients" aria-selected="false" onclick="carregarClientes()">Exibir Todos os Clientes</button>
+                  <button class="nav-link" id="v-pills-update-data-tab" data-bs-toggle="pill" data-bs-target="#v-pills-update-data" type="button" role="tab" aria-controls="v-pills-update-data" aria-selected="false">Atualizar Dados</button>
                   <button class="nav-link" id="v-pills-loan-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-loan-book" type="button" role="tab" aria-controls="v-pills-loan-book" aria-selected="false">Realizar Empréstimo</button>
                   <button class="nav-link" id="v-pills-return-book-tab" data-bs-toggle="pill" data-bs-target="#v-pills-return-book" type="button" role="tab" aria-controls="v-pills-return-book" aria-selected="false">Realizar Devolução</button>
                   <button class="nav-link" id="v-pills-account-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-account-settings" type="button" role="tab" aria-controls="v-pills-account-settings" aria-selected="false">Configurações da Conta</button>
@@ -86,6 +120,51 @@
                   <input type="number" class="form-control" id="livro-quantidade" placeholder="Quantidade a ser acrescentada no acervo">
                 </div>
                 <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3" onclick="criarJSONCadastroLivro()">Cadastrar Livro</button>
+              </div>
+            </div>
+
+            <!-- Atualizar Cliente ou Livro -->
+            <div class="tab-pane fade" id="v-pills-update-data" role="tabpanel" aria-labelledby="v-pills-update-data-tab" tabindex="0">
+              <div class="mt-5 text-white container-atualizar-dados">
+                <h2 class="mb-4 p-3">Atualizar Cliente ou Livro</h2>
+
+                <!-- Botão para atualizar cliente -->
+                <div class="mb-4">
+                  <h5><strong>Atualizar Cliente</strong></h5>
+                  <div class="d-flex gap-2 align-items-center flex-wrap">
+                    <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#atualizarCliente" aria-expanded="false" aria-controls="atualizarCliente">
+                      Atualizar Dados do Cliente
+                    </button>
+                    <input type="text" class="form-control" placeholder="Digite aqui o ID do Cliente" id="inputIdCliente" style="width: 300px;">
+                  </div>
+                  <div class="collapse mt-3" id="atualizarCliente">
+                    <input type="text" class="form-control mb-2" placeholder="Novo Nome" id="inputNomeCliente">
+                    <input type="text" class="form-control mb-2" placeholder="Novo Sobrenome" id="inputSobrenomeCliente">
+                    <input type="date" class="form-control mb-2" placeholder="Nova Data de Nascimento" id="inputDataNascimentoCliente">
+                    <input type="text" class="form-control mb-2" placeholder="Novo CPF" id="inputCpfCliente">
+                    <input type="text" class="form-control mb-2" placeholder="Novo Endereço" id="inputEnderecoCliente">
+                    <input type="text" class="form-control mb-2" placeholder="Novo Telefone" id="inputTelefoneCliente">
+                    <button class="btn btn-success" onclick="atualizarCliente()">Salvar Alterações</button>
+                  </div>
+                </div>
+
+                <!-- Botão para atualizar livro -->
+                <div class="mb-4">
+                  <h5><strong>Atualizar Livro</strong></h5>
+                  <div class="d-flex gap-2 align-items-center flex-wrap">
+                    <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#atualizarLivro" aria-expanded="false" aria-controls="atualizarLivro">
+                      Atualizar Dados do Livro
+                    </button>
+                    <input type="text" class="form-control" placeholder="Digite aqui o ID do Livro" id="inputIdLivro" style="width: 300px;">
+                  </div>
+                  <div class="collapse mt-3" id="atualizarLivro">
+                    <input type="text" class="form-control mb-2" placeholder="Novo Título" id="inputTituloLivro">
+                    <input type="text" class="form-control mb-2" placeholder="Nova Categoria" id="inputCategoriaLivro">
+                    <input type="number" class="form-control mb-2" placeholder="Nova Quantidade" id="inputQuantidadeLivro">
+                    <input type="number" class="form-control mb-2" placeholder="Emprestados" id="inputEmprestadosLivro">
+                    <button class="btn btn-success" onclick="atualizarLivro()">Salvar Alterações</button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -177,51 +256,86 @@
                 </div>
             </div>
 
-            <!-- Configurações da Conta -->
-            <div class="tab-pane fade " id="v-pills-account-settings" role="tabpanel" aria-labelledby="v-pills-account-settings-tab" tabindex="0">
-              <div class="container mt-6 text-white container-cadastro">
+            <div class="tab-pane fade" id="v-pills-account-settings" role="tabpanel" aria-labelledby="v-pills-account-settings-tab" tabindex="0">
+              <div class="container mt-6 text-white container-config-conta">
                 <h2 class="mb-4 p-3">Configurações da Conta</h2>
-
-                 <!-- Nome do Usuário -->
-                <div class="mb-4">
-                  <p><strong>Nome do Usuário:</strong> João da Silva</p>
-                  <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarNome" aria-expanded="false" aria-controls="editarNome">Editar Nome</button>
-                  <div class="collapse mt-2" id="editarNome">
-                    <input type="text" class="form-control mb-2" placeholder="Digite o novo nome" id="inputNome">
-                    <button class="btn btn-success" onclick="salvarNome()">Salvar</button>
+            
+                <div class="row">
+                  <!-- COLUNA ESQUERDA -->
+                  <div class="col-md-6">
+                    <!-- Nome do Usuário -->
+                    <div class="mb-4">
+                      <p><strong>Nome do Usuário:</strong> <span id="nome-usuario-conta">Carregando...</span></p>
+                      <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarNome" aria-expanded="false" aria-controls="editarNome">Editar Nome</button>
+                      <div class="collapse mt-2" id="editarNome">
+                        <input type="text" class="form-control mb-2" placeholder="Digite o novo nome" id="inputNome">
+                        <input type="text" class="form-control mb-2" placeholder="Digite o novo sobrenome" id="inputsobreNome">
+                        <button class="btn btn-success" onclick="atualizarConta()">Salvar</button>
+                      </div>
+                    </div>
+            
+                    <!-- E-mail -->
+                    <div class="mb-4">
+                      <p><strong>Email:</strong> <span id="email-usuario-conta">Carregando...</span></p>
+                      <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarEmail" aria-expanded="false" aria-controls="editarEmail">Editar Email</button>
+                      <div class="collapse mt-2" id="editarEmail">
+                        <input type="email" class="form-control mb-2" placeholder="Digite o novo email" id="inputEmail">
+                        <button class="btn btn-success" onclick="atualizarConta()">Salvar</button>
+                      </div>
+                    </div>
+            
+                    <!-- CPF -->
+                    <div class="mb-4">
+                      <p><strong>CPF:</strong> <span id="cpf-usuario-conta">Carregando...</span></p>
+                      <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarCpf" aria-expanded="false" aria-controls="editarCpf">Editar CPF</button>
+                      <div class="collapse mt-2" id="editarCpf">
+                        <input type="text" class="form-control mb-2" placeholder="Digite o novo CPF" id="inputCpf">
+                        <button class="btn btn-success" onclick="atualizarConta()">Salvar</button>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <!-- COLUNA DIREITA -->
+                  <div class="col-md-6">
+                    <!-- Senha -->
+                    <div class="mb-4">
+                      <p><strong>Senha:</strong> ********</p>
+                      <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarSenha" aria-expanded="false" aria-controls="editarSenha">Alterar Senha</button>
+                      <div class="collapse mt-2" id="editarSenha">
+                        <input type="password" class="form-control mb-2" placeholder="Digite a nova senha" id="inputSenha">
+                        <input type="password" class="form-control mb-2" placeholder="Confirme a nova senha" id="inputConfirmarSenha">
+                        <button class="btn btn-success" onclick="atualizarConta()">Salvar</button>
+                      </div>
+                    </div>
+            
+                    <!-- Nome da Biblioteca -->
+                    <div class="mb-4">
+                      <p><strong>Nome da Biblioteca:</strong> <span id="nome-biblioteca-conta">Carregando...</span></p>
+                      <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarBiblioteca" aria-expanded="false" aria-controls="editarBiblioteca">Editar Nome da Biblioteca</button>
+                      <div class="collapse mt-2" id="editarBiblioteca">
+                        <input type="text" class="form-control mb-2" placeholder="Novo nome da biblioteca" id="inputBibliotecaNome">
+                        <button class="btn btn-success" onclick="atualizarConta()">Salvar</button>
+                      </div>
+                    </div>
+            
+                    <!-- Políticas da Biblioteca -->
+                    <div class="mb-4">
+                      <p><strong>Políticas da Biblioteca:</strong></p>
+                      <ul>
+                        <li>Máx. dias: <span id="max-dias-biblioteca">-</span></li>
+                        <li>Máx. empréstimos: <span id="max-livros-biblioteca">-</span></li>
+                      </ul>
+                      <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarPoliBiblioteca" aria-expanded="false" aria-controls="editarPoliBiblioteca">Editar Políticas</button>
+                      <div class="collapse mt-2" id="editarPoliBiblioteca">
+                        <input type="number" class="form-control mb-2" placeholder="Máximo de dias para devolução" id="inputMaxDias">
+                        <input type="number" class="form-control mb-2" placeholder="Máximo de empréstimos" id="inputMaxLivros">
+                        <button class="btn btn-success" onclick="atualizarConta()">Salvar</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <!-- E-mail -->
-                <div class="mb-4">
-                  <p><strong>Email:</strong> joao@email.com</p>
-                  <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarEmail" aria-expanded="false" aria-controls="editarEmail">Editar Email</button>
-                  <div class="collapse mt-2" id="editarEmail">
-                    <input type="email" class="form-control mb-2" placeholder="Digite o novo email" id="inputEmail">
-                    <button class="btn btn-success" onclick="salvarEmail()">Salvar</button>
-                  </div>
-                </div>
-
-                <!-- Senha -->
-                <div class="mb-4">
-                  <p><strong>Senha:</strong> ********</p>
-                  <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarSenha" aria-expanded="false" aria-controls="editarSenha">Alterar Senha</button>
-                  <div class="collapse mt-2" id="editarSenha">
-                    <input type="password" class="form-control mb-2" placeholder="Digite a nova senha" id="inputSenha">
-                    <input type="password" class="form-control mb-2" placeholder="Confirme a nova senha" id="inputConfirmarSenha">
-                    <button class="btn btn-success" onclick="salvarSenha()">Salvar</button>
-                  </div>
-                </div>
-
-                <!-- Nome da Biblioteca -->
-                <div class="mb-4">
-                  <p><strong>Nome da Biblioteca:</strong> Biblioteca Central</p>
-                  <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarBiblioteca" aria-expanded="false" aria-controls="editarBiblioteca">Editar Nome da Biblioteca</button>
-                  <div class="collapse mt-2" id="editarBiblioteca">
-                    <input type="text" class="form-control mb-2" placeholder="Novo nome da biblioteca" id="inputBiblioteca">
-                    <button class="btn btn-success" onclick="salvarBiblioteca()">Salvar</button>
-                  </div>
-                </div>
+              </div>
+            </div>
               </div>
             </div>
           </div>
@@ -233,5 +347,9 @@
     <script src="../js/script-menu-cadastrar-livro.js"></script>
     <script src="../js/script-menu-emprestimo.js"></script>
     <script src="../js/script-menu-devolucao.js"></script>
+    <script src="../js/script-menu-atualizar-livros.js"></script>
+    <script src="../js/script-menu-atualizar-clientes.js"></script>
+    <script src="../js/script-cadastro-biblioteca.js"></script>
+    <script src="../js/script-configurar-conta.js"></script>
 </body>
 </html>

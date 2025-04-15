@@ -29,7 +29,6 @@ function criarJSONCadastroCliente() {
 async function enviarJSONCliente (jsonDados) {
     try {
       const token = localStorage.getItem("token");
-      console.log(token);
       const response = await fetch('http://localhost:8081/usuarios/clientes/cadastrar_cliente', {
         method: 'POST',
         headers: {

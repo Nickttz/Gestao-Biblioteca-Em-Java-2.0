@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,14 +42,8 @@ public class UsuarioGestor {
     @Column(name = "telefone", columnDefinition = "TEXT", nullable = true)
     private String telefone;
 
-    @Column(name = "max_dias")
-    private int max_dias;
-
     @Column(name = "senha", columnDefinition = "TEXT", nullable = true)
     private String senha;
-
-    @Column(name = "max_livros")
-    private int max_livros;
 
     @ManyToMany(mappedBy = "contas", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Livro> livros = new ArrayList<>();
@@ -56,8 +51,11 @@ public class UsuarioGestor {
     @ManyToMany(mappedBy = "contas", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Usuario> usuarios = new ArrayList<>();
 
-    @OneToMany(mappedBy = "contas", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "conta", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Emprestimo> emprestimos = new ArrayList<>();
+
+    @OneToOne(mappedBy = "conta", cascade = CascadeType.ALL)
+    private Biblioteca biblioteca;
 
     public UsuarioGestor() {}
 

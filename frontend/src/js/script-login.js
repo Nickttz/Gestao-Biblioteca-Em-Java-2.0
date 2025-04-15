@@ -31,7 +31,7 @@ async function enviarJSON(jsonDados) {
         const data = await response.json(); // capturar o token
         console.log("Resposta do servidor:", response.status);
         localStorage.setItem("token", data.token); // armazenar o token
-        console.log(data.token);
+        
         window.location.href = "pages/menu.html";
       } else {
         alert("Email e/ou senha inválidos");

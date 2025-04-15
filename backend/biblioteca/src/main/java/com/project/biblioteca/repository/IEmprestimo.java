@@ -12,8 +12,8 @@ import com.project.biblioteca.model.UsuarioGestor;
 
 public interface IEmprestimo extends JpaRepository<Emprestimo, UUID> {
 
-    Optional<Emprestimo> findByClienteAndLivroAndContasAndDataDevolucaoIsNull(Usuario cliente, Livro livro, UsuarioGestor contas);
+    Optional<Emprestimo> findByClienteAndLivroAndContaAndDataDevolucaoIsNull(Usuario cliente, Livro livro, UsuarioGestor contas);
 
-    int countByClienteAndLivroAndContas(Usuario cliente, Livro livro, UsuarioGestor contas);
+    int countByClienteAndLivroAndConta(Usuario cliente, Livro livro, UsuarioGestor contas);
 
 }

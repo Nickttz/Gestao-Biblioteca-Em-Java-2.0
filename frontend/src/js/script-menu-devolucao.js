@@ -21,7 +21,6 @@ function criarJSONdevolucao() {
 async function enviarJSONdevolucao (jsonDados) {
     try {
       const token = localStorage.getItem("token");
-      console.log(token);
       const response = await fetch('http://localhost:8081/usuarios/emprestimos/realizar_devolucao', {
         method: 'POST',
         headers: {

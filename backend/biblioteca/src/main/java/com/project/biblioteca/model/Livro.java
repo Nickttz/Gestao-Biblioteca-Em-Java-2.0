@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -58,6 +59,10 @@ public class Livro {
         inverseJoinColumns = @JoinColumn(name = "id_usuario")
     )
     private List<Usuario> usuarios = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "id_biblioteca")
+    private Biblioteca biblioteca;
 
     public Livro() {}
 }

@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -32,26 +33,26 @@ public class Usuario {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name="nome", nullable=false, length=100)
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(name="sobre_nome", nullable=false, length=100)
+    @Column(name = "sobre_nome", nullable = false, length = 100)
     private String sobrenome;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="data_nasc", nullable=false)
+    @Column(name = "data_nasc", nullable = false)
     private LocalDate dataNascimento;
 
-    @Column(name="cpf", nullable=false, unique=true, length=14)
+    @Column(name = "cpf", nullable = false, unique = true, length = 14)
     private String Cpf;
 
-    @Column(name="max_livro", nullable=false)
+    @Column(name = "max_livro", nullable = false)
     private int maxLivro;
 
-    @Column(name="endereco", nullable=false, length=255)
+    @Column(name = "endereco", nullable = false, length = 255)
     private String endereco;
 
-    @Column(name="telefone", nullable=true, length=20)
+    @Column(name = "telefone", nullable = true, length = 20)
     private String telefone;
 
     @OneToMany(mappedBy = "cliente")
@@ -68,6 +69,9 @@ public class Usuario {
     @ManyToMany(mappedBy = "usuarios", cascade = CascadeType.ALL)
     private List<Livro> livros = new ArrayList<>();
 
-    public Usuario() {}
+    @ManyToOne
+    @JoinColumn(name = "id_biblioteca")
+    private Biblioteca biblioteca;
 
+    public Usuario() {}
 }

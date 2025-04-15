@@ -3,6 +3,8 @@ package com.project.biblioteca.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.project.biblioteca.model.Biblioteca;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +18,6 @@ public class EmprestimoDto {
     private LocalDate data_devolucao;
     private UUID idcliente;
     private UUID idlivro;
+    private Integer idconta;
+    private Biblioteca biblioteca;
 }

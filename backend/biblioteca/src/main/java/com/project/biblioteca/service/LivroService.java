@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.biblioteca.dto.EmprestimoDto;
 import com.project.biblioteca.dto.LivroDto;
+import com.project.biblioteca.dto.UsuarioGestorDto;
 import com.project.biblioteca.model.Livro;
 import com.project.biblioteca.model.Usuario;
 import com.project.biblioteca.model.UsuarioGestor;
@@ -22,31 +23,60 @@ public class LivroService {
 
     @Autowired
     private ILivro livroRepo;
+    
     @Autowired
     private IUsuarioGestor repositoryGestor;
 
-    public Livro cadastrar(LivroDto dto, UsuarioGestor gestor) {
-        
-        gestor = repositoryGestor.findByCpf(gestor.getCpf());
+    public Livro cadastrar(LivroDto dto, UsuarioGestorDto gestorDto) {
+        Optional<UsuarioGestor> gestorOpt = repositoryGestor.findByCpf(gestorDto.getCpf());
+        UsuarioGestor gestor = gestorOpt.get();
 
-        if(gestor != null) {
-            
+        if (gestor != null) {
             Livro livro = new Livro();
             livro.setTituloDoLivro(dto.getTituloDoLivro());
             livro.setCategoria(dto.getCategoria());
             livro.setQuantidade(dto.getQuantidade());
             livro.setEmprestados(0);
+            livro.setBiblioteca(dto.getBiblioteca());
+
             List<UsuarioGestor> gestores = new ArrayList<>();
             gestores.add(gestor);
             livro.setContas(gestores);
+
             return livroRepo.save(livro);
         }
-        
+
         return null;
     }
 
-  public List<LivroDto> listarPorGestor(UsuarioGestor user) {
-        List<Livro> livros = livroRepo.findByContas(user);
+    public Livro atualizar(UUID id, LivroDto dto, UsuarioGestorDto gestorDto) {
+        Optional<UsuarioGestor> gestorOpt = repositoryGestor.findByCpf(gestorDto.getCpf());
+        UsuarioGestor gestor = gestorOpt.get();
+
+        if (gestor != null) {
+            Optional<Livro> livroOpt = livroRepo.findByIdAndContas(id, gestor);
+            if (livroOpt.isPresent()) {
+                Livro livro = livroOpt.get();
+
+                if (dto.getTituloDoLivro() != null && !dto.getTituloDoLivro().isBlank()) livro.setTituloDoLivro(dto.getTituloDoLivro());
+                if (dto.getCategoria() != null && !dto.getCategoria().isBlank()) livro.setCategoria(dto.getCategoria());
+                if (dto.getQuantidade() != null) livro.setQuantidade(dto.getQuantidade());
+                if (dto.getEmprestados() != null) livro.setEmprestados(dto.getEmprestados());
+
+                return livroRepo.save(livro);
+            }
+        }
+
+        return null;
+    }
+
+    public List<LivroDto> listarPorGestor(UsuarioGestorDto gestorDto) {
+        Optional<UsuarioGestor> gestorOpt = repositoryGestor.findByCpf(gestorDto.getCpf());
+        UsuarioGestor gestor = gestorOpt.get();
+
+        if (gestor == null) return new ArrayList<>();
+
+        List<Livro> livros = livroRepo.findByContas(gestor);
 
         return livros.stream().map(livro -> {
             LivroDto dto = new LivroDto();
@@ -57,7 +87,8 @@ public class LivroService {
             dto.setEmprestados(livro.getEmprestados());
 
             List<EmprestimoDto> emprestimos = new ArrayList<>();
-            List<Usuario> usuarios = livro.getUsuarios(); 
+            List<Usuario> usuarios = livro.getUsuarios();
+
             if (usuarios != null) {
                 for (Usuario usuario : usuarios) {
                     EmprestimoDto empDto = new EmprestimoDto();
@@ -67,20 +98,22 @@ public class LivroService {
                     emprestimos.add(empDto);
                 }
             }
-            
-            dto.setClientes(emprestimos);
 
+            dto.setClientes(emprestimos);
             return dto;
         }).collect(Collectors.toList());
     }
 
+    public boolean deletarLivro(UsuarioGestorDto gestorDto, UUID id) {
+        Optional<UsuarioGestor> gestorOpt = repositoryGestor.findByCpf(gestorDto.getCpf());
+        UsuarioGestor gestor = gestorOpt.get();
 
-    public boolean deletarLivro(UsuarioGestor gestor, UUID id) {
-        Optional<Livro> livroOpt = livroRepo.findByIdAndContas(id, gestor);
-        
-        if (livroOpt.isPresent()) {
-            livroRepo.delete(livroOpt.get());
-            return true;
+        if (gestor != null) {
+            Optional<Livro> livroOpt = livroRepo.findByIdAndContas(id, gestor);
+            if (livroOpt.isPresent()) {
+                livroRepo.delete(livroOpt.get());
+                return true;
+            }
         }
 
         return false;

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.biblioteca.model.Biblioteca;
 import com.project.biblioteca.model.UsuarioGestor;
 
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class UsuarioDto {
     private String endereco;
     private String telefone;
     private List<UsuarioGestor> contas;
-    private int maxlivro;
+    private Integer maxlivro;
+    private Biblioteca biblioteca;
 
 }

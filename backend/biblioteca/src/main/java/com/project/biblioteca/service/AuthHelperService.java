@@ -1,5 +1,8 @@
 package com.project.biblioteca.service;
 
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -16,7 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class AuthHelperService {
     
     @Autowired
-    private final IUsuarioGestor gestorRepo;
+    private IUsuarioGestor gestorRepo;
 
     public AuthHelperService(IUsuarioGestor gestorRepo) {
         this.gestorRepo = gestorRepo;
@@ -30,9 +33,10 @@ public class AuthHelperService {
         }
 
         String cpfGestor = auth.getName();
-        UsuarioGestor gestor = gestorRepo.findByCpf(cpfGestor);
+        Optional<UsuarioGestor> gestorOpt = gestorRepo.findByCpf(cpfGestor);
+        UsuarioGestor gestor = gestorOpt.get();
 
-        if (gestor == null) {
+        if (!gestorOpt.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Gestor não encontrado.");
         }
 

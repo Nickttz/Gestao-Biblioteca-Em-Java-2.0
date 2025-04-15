@@ -1,5 +1,6 @@
 package com.project.biblioteca.security;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
 
 import com.project.biblioteca.model.UsuarioGestor;
 
@@ -19,16 +21,17 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 
+@Service
 public class TokenUtil {
     
     private static final String HEADER = "Authorization";
     private static final String PREFIX = "Bearer ";
     private static final long EXPIRATION = 60*60*1000;
-    private static final String SECRECT_KEY = "xT+xIhH0JpJUrUQNYsRtzyHqR6Y7/9Z4mKXcIUlQEpY=";
+    private static final String SECRET_KEY = "xT+xIhH0JpJUrUQNYsRtzyHqR6Y7/9Z4mKXcIUlQEpY=";
     private static final String EMISSOR = "biblioteca-api";
 
     public static String criarToken(UsuarioGestor usuario) {
-        Key secretKey = Keys.hmacShaKeyFor(SECRECT_KEY.getBytes());
+        Key secretKey = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
         String token = Jwts.builder()
             .setSubject(usuario.getCpf())
@@ -54,6 +57,20 @@ public class TokenUtil {
         return (cpf != null && cpf.length() > 0);
     }
 
+    public String extrairCpfDoToken(String token) {
+        try {
+            Claims jwsClaims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+            return jwsClaims.getSubject(); 
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new RuntimeException("Token JWT inválido ou expirado", e);
+        }
+    }
+
     public static Authentication validate (HttpServletRequest request) {
         String token = request.getHeader(HEADER);
         
@@ -63,7 +80,7 @@ public class TokenUtil {
     
         try {
             Jws<Claims> jwsClaims = Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(SECRECT_KEY.getBytes()))
+                .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
                 .build()
                 .parseClaimsJws(token);
     
