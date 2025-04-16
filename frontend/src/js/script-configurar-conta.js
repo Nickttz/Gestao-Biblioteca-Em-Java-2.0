@@ -19,6 +19,7 @@ async function carregarDadosConta() {
             document.getElementById("nome-usuario-conta").textContent = `${dados.nome} ${dados.sobrenome}`;
             document.getElementById("email-usuario-conta").textContent = dados.email;
             document.getElementById("cpf-usuario-conta").textContent = dados.cpf;
+            document.getElementById("telefone-usuario-conta").textContent = dados.telefone;
 
             document.getElementById("nome-biblioteca-conta").textContent = dados.biblioteca.nomeBiblioteca;
             document.getElementById("max-dias-biblioteca").textContent = dados.biblioteca.diasTolerancia;
@@ -31,6 +32,7 @@ async function carregarDadosConta() {
             document.getElementById("inputBibliotecaNome").value = dados.biblioteca.nomeBiblioteca;
             document.getElementById("inputMaxDias").value = dados.biblioteca.diasTolerancia;
             document.getElementById("inputMaxLivros").value = dados.biblioteca.maxEmprestimos;
+            document.getElementById("inputTel").value = dados.telefone;
 
         } else {
             console.error("Erro ao buscar dados do perfil:", response.status);
@@ -46,12 +48,16 @@ function atualizarConta() {
     const nome = document.getElementById("inputNome").value;
     const sobrenome = document.getElementById("inputsobreNome").value;
     const email = document.getElementById("inputEmail").value;
-    const cpf = document.getElementById("inputCpf").value; 
+    const cpf_format = document.getElementById("inputCpf").value;
+    const cpf = cpf_format.replace(/\D/g, ''); 
     const senha = document.getElementById("inputSenha").value;
     const confirmarSenha = document.getElementById("inputConfirmarSenha").value;
     const nomeBiblioteca = document.getElementById("inputBibliotecaNome").value;
     const maxDias = document.getElementById("inputMaxDias").value;
     const maxLivros = document.getElementById("inputMaxLivros").value;
+    const telefone_format = document.getElementById("inputTel").value;
+    const telefone = telefone_format.replace(/\D/g, '');
+
 
     if(senha !== confirmarSenha) {
         alert("As senhas não coincidem");
@@ -63,7 +69,8 @@ function atualizarConta() {
             nome: nome,
             sobrenome: sobrenome,
             email: email,
-            cpf: cpfToken,
+            cpf: cpf,
+            telefone: telefone,
             senha: senha,
             biblioteca: {
                 nomeBiblioteca: nomeBiblioteca,
@@ -75,10 +82,39 @@ function atualizarConta() {
         const jsonDados = JSON.stringify(dadosAtualizados);
         enviarJSONAtualizacaoConta(jsonDados, cpfToken);
         clearFormAtualizarConta();
+
     }).catch(error => {
         console.error("Erro ao obter CPF do token:", error);
         alert("Erro ao recuperar CPF.");
     });
+}
+
+async function deletarConta() {
+
+    try {
+        const cpf = await obterCpfDoToken();
+        const token = localStorage.getItem("token");
+        const response = await fetch(`http://localhost:8081/usuarios/delete/${cpf}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ` + token
+            },
+        });
+
+        if (response.ok) {
+            alert("Conta deletada.");
+            localStorage.removeItem("token");
+            window.location.href = '../index.html';
+            console.log(response.status);
+        } else {
+            alert("Erro ao deletar conta.");
+            console.log(response.status);
+        }
+
+    } catch(error) {
+        console.error("Error ao conectar com o servidor", error);
+    }
 }
 
 async function obterCpfDoToken() {
@@ -139,4 +175,5 @@ function clearFormAtualizarConta() {
     document.getElementById("inputBibliotecaNome").value = '';
     document.getElementById("inputMaxDias").value = '';
     document.getElementById("inputMaxLivros").value = '';
+    document.getElementById("inputTel").value = '';
 }

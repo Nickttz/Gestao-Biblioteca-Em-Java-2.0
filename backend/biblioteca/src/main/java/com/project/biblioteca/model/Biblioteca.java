@@ -1,5 +1,7 @@
 package com.project.biblioteca.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,5 +34,6 @@ public class Biblioteca {
 
     @OneToOne
     @JoinColumn(name = "id_gestor", referencedColumnName = "id", nullable = false, unique = true)
+    @JsonIgnore
     private UsuarioGestor conta;
 }

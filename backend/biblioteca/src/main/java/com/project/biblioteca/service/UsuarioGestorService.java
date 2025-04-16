@@ -1,5 +1,6 @@
 package com.project.biblioteca.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,19 @@ import org.springframework.stereotype.Service;
 import com.project.biblioteca.dto.BibliotecaDto;
 import com.project.biblioteca.dto.UsuarioGestorDto;
 import com.project.biblioteca.model.Biblioteca;
+import com.project.biblioteca.model.Emprestimo;
+import com.project.biblioteca.model.Livro;
+import com.project.biblioteca.model.Usuario;
 import com.project.biblioteca.model.UsuarioGestor;
 import com.project.biblioteca.repository.IBiblioteca;
+import com.project.biblioteca.repository.IEmprestimo;
+import com.project.biblioteca.repository.ILivro;
+import com.project.biblioteca.repository.IUsuario;
 import com.project.biblioteca.repository.IUsuarioGestor;
 import com.project.biblioteca.security.Token;
 import com.project.biblioteca.security.TokenUtil;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
@@ -25,6 +33,15 @@ public class UsuarioGestorService {
 
     @Autowired
     private IUsuarioGestor repository;
+
+    @Autowired
+    private IUsuario usuarioRepository;
+
+    @Autowired
+    private ILivro livroRepository;
+
+    @Autowired
+    private IEmprestimo emprestimoRepository;
 
     @Autowired
     private IBiblioteca bibliotecaRepository;
@@ -57,8 +74,8 @@ public class UsuarioGestorService {
     }
 
     public UsuarioGestor cadastrarUsuario(UsuarioGestorDto usuarioDto) {
+        
         String senhaCriptografada = this.passwordEncoder.encode(usuarioDto.getSenha());
-
         UsuarioGestor usuario = new UsuarioGestor();
         usuario.setNome(usuarioDto.getNome());
         usuario.setSobrenome(usuarioDto.getSobrenome());
@@ -95,11 +112,24 @@ public class UsuarioGestorService {
         return null;
     }
 
-    public Boolean deletarUsuario(Integer id) {
-        Optional<UsuarioGestor> optionalUsuario = repository.findById(id);
+    @Transactional
+    public Boolean deletarUsuario(String cpf) {
+        Optional<UsuarioGestor> optionalUsuario = repository.findByCpf(cpf);
 
         if (optionalUsuario.isPresent()) {
-            repository.deleteById(id);
+            UsuarioGestor gestor = optionalUsuario.get();
+
+            List<Usuario> usuarios = usuarioRepository.findByContas(gestor);
+            List<Livro> livros = livroRepository.findByContas(gestor);
+            List<Emprestimo> emprestimos = emprestimoRepository.findByConta(gestor);
+
+            if (!usuarios.isEmpty()) {
+                usuarioRepository.deleteAll(usuarios);
+                livroRepository.deleteAll(livros);
+                emprestimoRepository.deleteAll(emprestimos);
+            }
+
+            repository.delete(gestor);
             return true;
         }
 

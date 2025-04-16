@@ -18,7 +18,7 @@ inputCPF.addEventListener('input', function () {
 // Máscara telefone
 const inputTelefone = document.getElementById('telefoneInput');
 inputTelefone.addEventListener('input', function () {
-    let tel = inputTelefone.value.replace(/\D/g, '');
+    let tel = inputTelefone.value.replace(/\D/g/'-', '');
 
     if (tel.length <= 10) {
         tel = tel.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
@@ -39,8 +39,10 @@ function criarJSONCadastro() {
     const confirmarSenha = document.getElementById("confirmarSenhaInput").value;
     const nome = document.getElementById("nomeInput").value;
     const sobrenome = document.getElementById("sobrenomeInput").value;
-    const cpf = document.getElementById("cpfInput").value;
-    const telefone = document.getElementById("telefoneInput").value;
+    const cpf_format = document.getElementById("cpfInput").value;
+    const cpf = cpf_format.replace(/\D/g, '');
+    const telefone_format = document.getElementById("telefoneInput").value;
+    const telefone = telefone_format.replace(/\D/g, '');
 
     if (!email || !senha || !nome || !sobrenome || !cpf || !telefone || !confirmarSenha) {
         alert("Preencha todos os campos.");
@@ -79,8 +81,7 @@ async function enviarJSON (jsonDados) {
   
       if (response.ok) {
             alert("Cadastro realizado com sucesso!");
-            console.log('Resposta do servidor:', await response.json());
-            window.location.href = "pages/index.html";
+            window.location.href = "../index.html";
       } else {
             alert("Erro ao cadastrar. Verifique os dados e tente novamente.");
             console.warn("Resposta com erro:", response.status);

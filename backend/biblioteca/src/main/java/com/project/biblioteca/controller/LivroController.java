@@ -61,7 +61,7 @@ public class LivroController {
         return ResponseEntity.ok(livros);
     }
 
-    @DeleteMapping("/usuarios/livros/deletar_livro/{id}")
+    @DeleteMapping("/usuarios/livros/deletar_livros/{id}")
     public ResponseEntity<?> deletarLivro(@PathVariable UUID id, HttpServletRequest request) {
         UsuarioGestor gestorOpt = authHelper.validarTokenEObterGestor(request);
         UsuarioGestorDto gestor = Mapper.toDto(gestorOpt);
@@ -69,6 +69,6 @@ public class LivroController {
         if (livroService.deletarLivro(gestor, id)) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.status(404).body("Livro não encontrado.");
+        return ResponseEntity.status(404).body("Livro não encontrado ou possui emprestimo pendente.");
     }
 }

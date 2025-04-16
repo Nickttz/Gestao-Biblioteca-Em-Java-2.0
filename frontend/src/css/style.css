@@ -148,3 +148,59 @@ body {
     position: absolute;
     margin-top: 1vh;
 }
+
+.background-update {
+    background-image: url(../images/background-update-dados.jpg);
+    background-size: cover;
+    background-position: bottom;
+    min-height: 100vh;
+}
+
+.background-emprestimo {
+    background-image: url(../images/background-realizar-emprestimo.jpg);
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.background-devolucao {
+    background-image: url(../images/background-devolucao.jpg);
+    background-size: cover;
+    background-position: center bottom;
+    min-height: 100vh;
+}
+
+.background-biblioteca-config {
+    background-image: url(../images/background-biblioteca-config.jpg);
+    background-size: cover;
+    background-position: bottom;
+    min-height: 100vh;
+}
+
+.container-emprestimo-devolucao {
+    width: 50vh;
+    font-size: large;
+    height: auto;
+    background-color: rgb(34, 34, 34);
+    display: flex;
+    flex-direction: column; 
+    margin-left: 30vw;
+    padding: 30px;
+    border-radius: 20px;
+    position: absolute;
+    margin-top: 20vh;
+}
+
+.container-cadastro-livro {
+    width: 50vh;
+    font-size: large;
+    height: auto;
+    background-color: rgb(34, 34, 34);
+    display: flex;
+    flex-direction: column; 
+    margin-left: 30vw;
+    padding: 30px;
+    border-radius: 20px;
+    position: absolute;
+    margin-top: 17vh;
+}

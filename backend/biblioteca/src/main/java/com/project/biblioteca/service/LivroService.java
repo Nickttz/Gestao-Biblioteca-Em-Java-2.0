@@ -12,17 +12,24 @@ import org.springframework.stereotype.Service;
 import com.project.biblioteca.dto.EmprestimoDto;
 import com.project.biblioteca.dto.LivroDto;
 import com.project.biblioteca.dto.UsuarioGestorDto;
+import com.project.biblioteca.model.Emprestimo;
 import com.project.biblioteca.model.Livro;
 import com.project.biblioteca.model.Usuario;
 import com.project.biblioteca.model.UsuarioGestor;
+import com.project.biblioteca.repository.IEmprestimo;
 import com.project.biblioteca.repository.ILivro;
 import com.project.biblioteca.repository.IUsuarioGestor;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class LivroService {
 
     @Autowired
     private ILivro livroRepo;
+
+    @Autowired
+    private IEmprestimo emprestimoRepositoy;
     
     @Autowired
     private IUsuarioGestor repositoryGestor;
@@ -104,18 +111,27 @@ public class LivroService {
         }).collect(Collectors.toList());
     }
 
+    @Transactional
     public boolean deletarLivro(UsuarioGestorDto gestorDto, UUID id) {
         Optional<UsuarioGestor> gestorOpt = repositoryGestor.findByCpf(gestorDto.getCpf());
-        UsuarioGestor gestor = gestorOpt.get();
 
-        if (gestor != null) {
+        if (gestorOpt != null) {
+            UsuarioGestor gestor = gestorOpt.get();
             Optional<Livro> livroOpt = livroRepo.findByIdAndContas(id, gestor);
-            if (livroOpt.isPresent()) {
-                livroRepo.delete(livroOpt.get());
+            Livro book = livroOpt.get();
+            
+            if (livroOpt.isPresent() && emprestimoRepositoy.existsByLivro_IdAndContaAndDataDevolucaoIsNull(id, gestor)) {
+                livroRepo.delete(book);
+                return true;
+            }
+
+            if(!emprestimoRepositoy.existsByLivro_IdAndContaAndDataDevolucaoIsNull(id, gestor)) {
+                List<Emprestimo> emprestimos = emprestimoRepositoy.findAllByLivro_IdAndConta(id, gestor);
+                emprestimoRepositoy.deleteAll(emprestimos);
+                livroRepo.delete(book);
                 return true;
             }
         }
-
         return false;
     }
 }

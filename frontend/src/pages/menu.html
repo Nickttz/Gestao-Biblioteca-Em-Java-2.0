@@ -84,7 +84,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="cliente-cpf" class="form-label">CPF</label>
-                  <input type="text" class="form-control" id="cliente-cpf">
+                  <input type="text" class="form-control" id="cliente-cpf" maxlength="14">
                 </div>
                 <div class="mb-3">
                   <label for="cliente-endereco" class="form-label">Endereço</label>
@@ -92,15 +92,15 @@
                 </div>
                 <div class="mb-3">
                   <label for="cliente-telefone" class="form-label">Telefone</label>
-                  <input type="text" class="form-control" id="cliente-telefone">
+                  <input type="text" class="form-control" id="cliente-telefone" maxlength="15">
                 </div>
-                <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3" onclick="criarJSONCadastroCliente()">Cadastrar Cliente</button>
+                <button type="button" class="btn btn-outline-success mb-3 w-30 mt-3" onclick="criarJSONCadastroCliente()">Cadastrar Cliente</button>
               </div>
             </div>
 
             <!-- Cadastrar Livro -->
             <div class="tab-pane fade background-cadastro-livro" id="v-pills-register-book" role="tabpanel" aria-labelledby="v-pills-register-book-tab" tabindex="0">
-              <div class="container-cadastro d-flex">
+              <div class="container-cadastro-livro d-flex">
                 <h1 class="p-4 text-center">Cadastro de Livro</h1>
                 <div class="mb-3">
                   <label for="livro-titulo" class="form-label">Título do Livro</label>
@@ -109,71 +109,112 @@
                 <div class="mb-3">
                   <label for="livro-categoria" class="form-label">Categoria do Livro</label>
                     <select class="form-select" id="livro-categoria">
-                      <option selected>Categoria do livro</option>
+                      <option selected disabled hidden value="">Categoria do livro</option>
                       <option value="1">Terror</option>
                       <option value="2">Ficção</option>
                       <option value="3">Romance</option>
+                      <option value="4">Aventura</option>
+                      <option value="5">Fantasia</option>
+                      <option value="6">Suspense</option>
+                      <option value="7">Biografia</option>
+                      <option value="8">História</option>
+                      <option value="9">Ciência</option>
+                      <option value="10">Autoajuda</option>
+                      <option value="11">Tecnologia</option>
+                      <option value="12">Drama</option>
+                      <option value="13">Poesia</option>
+                      <option value="14">HQs e Mangás</option>
+                      <option value="15">Infantil</option>
+                      <option value="16">Didático</option>
+                      <option value="17">Policial</option>
                     </select>
                 </div>
                 <div class="mb-3">
                   <label for="livro-quantidade" class="form-label">Quantidade do Livro</label>
                   <input type="number" class="form-control" id="livro-quantidade" placeholder="Quantidade a ser acrescentada no acervo">
                 </div>
-                <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3" onclick="criarJSONCadastroLivro()">Cadastrar Livro</button>
+                <button type="button" class="btn btn-outline-success mb-3 w-30 mt-3" onclick="criarJSONCadastroLivro()">Cadastrar Livro</button>
               </div>
             </div>
 
             <!-- Atualizar Cliente ou Livro -->
-            <div class="tab-pane fade" id="v-pills-update-data" role="tabpanel" aria-labelledby="v-pills-update-data-tab" tabindex="0">
+            <div class="tab-pane fade background-update" id="v-pills-update-data" role="tabpanel" aria-labelledby="v-pills-update-data-tab" tabindex="0">
               <div class="mt-5 text-white container-atualizar-dados">
                 <h2 class="mb-4 p-3">Atualizar Cliente ou Livro</h2>
 
-                <!-- Botão para atualizar cliente -->
-                <div class="mb-4">
-                  <h5><strong>Atualizar Cliente</strong></h5>
-                  <div class="d-flex gap-2 align-items-center flex-wrap">
-                    <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#atualizarCliente" aria-expanded="false" aria-controls="atualizarCliente">
-                      Atualizar Dados do Cliente
-                    </button>
-                    <input type="text" class="form-control" placeholder="Digite aqui o ID do Cliente" id="inputIdCliente" style="width: 300px;">
-                  </div>
-                  <div class="collapse mt-3" id="atualizarCliente">
-                    <input type="text" class="form-control mb-2" placeholder="Novo Nome" id="inputNomeCliente">
-                    <input type="text" class="form-control mb-2" placeholder="Novo Sobrenome" id="inputSobrenomeCliente">
-                    <input type="date" class="form-control mb-2" placeholder="Nova Data de Nascimento" id="inputDataNascimentoCliente">
-                    <input type="text" class="form-control mb-2" placeholder="Novo CPF" id="inputCpfCliente">
-                    <input type="text" class="form-control mb-2" placeholder="Novo Endereço" id="inputEnderecoCliente">
-                    <input type="text" class="form-control mb-2" placeholder="Novo Telefone" id="inputTelefoneCliente">
-                    <button class="btn btn-success" onclick="atualizarCliente()">Salvar Alterações</button>
-                  </div>
-                </div>
+                <div class="row g-5 justify-content-center">
 
-                <!-- Botão para atualizar livro -->
-                <div class="mb-4">
-                  <h5><strong>Atualizar Livro</strong></h5>
-                  <div class="d-flex gap-2 align-items-center flex-wrap">
-                    <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#atualizarLivro" aria-expanded="false" aria-controls="atualizarLivro">
-                      Atualizar Dados do Livro
-                    </button>
-                    <input type="text" class="form-control" placeholder="Digite aqui o ID do Livro" id="inputIdLivro" style="width: 300px;">
+                  <!-- Coluna: Atualizar Cliente -->
+                  <div class="col-md-6">
+                    <h5><strong>Atualizar Cliente</strong></h5>
+                    <div class="d-flex gap-2 align-items-center flex-wrap">
+                      <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#atualizarCliente" aria-expanded="false" aria-controls="atualizarCliente">
+                        Atualizar Dados do Cliente
+                      </button>
+                      <input type="text" class="form-control" placeholder="Digite aqui o ID do Cliente" id="inputIdCliente" style="width: 300px;">
+                    </div>
+                    <div class="collapse mt-3" id="atualizarCliente">
+                      <input type="text" class="form-control mb-2" placeholder="Novo Nome" id="inputNomeCliente">
+                      <input type="text" class="form-control mb-2" placeholder="Novo Sobrenome" id="inputSobrenomeCliente">
+                      <input type="date" class="form-control mb-2" placeholder="Nova Data de Nascimento" id="inputDataNascimentoCliente">
+                      <input type="text" class="form-control mb-2" placeholder="Novo CPF" id="inputCpfCliente" maxlength="11">
+                      <input type="text" class="form-control mb-2" placeholder="Novo Endereço" id="inputEnderecoCliente">
+                      <input type="text" class="form-control mb-2" placeholder="Novo Telefone" id="inputTelefoneCliente" maxlength="11">
+                      <button class="btn btn-success" onclick="atualizarCliente()">Salvar Alterações</button>
+                    </div>
                   </div>
-                  <div class="collapse mt-3" id="atualizarLivro">
-                    <input type="text" class="form-control mb-2" placeholder="Novo Título" id="inputTituloLivro">
-                    <input type="text" class="form-control mb-2" placeholder="Nova Categoria" id="inputCategoriaLivro">
-                    <input type="number" class="form-control mb-2" placeholder="Nova Quantidade" id="inputQuantidadeLivro">
-                    <input type="number" class="form-control mb-2" placeholder="Emprestados" id="inputEmprestadosLivro">
-                    <button class="btn btn-success" onclick="atualizarLivro()">Salvar Alterações</button>
+
+                  <!-- Coluna: Atualizar Livro -->
+                  <div class="col-md-6">
+                    <h5><strong>Atualizar Livro</strong></h5>
+                    <div class="d-flex gap-2 align-items-center flex-wrap">
+                      <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#atualizarLivro" aria-expanded="false" aria-controls="atualizarLivro">
+                        Atualizar Dados do Livro
+                      </button>
+                      <input type="text" class="form-control" placeholder="Digite aqui o ID do Livro" id="inputIdLivro" style="width: 300px;">
+                    </div>
+                    <div class="collapse mt-3" id="atualizarLivro">
+                      <input type="text" class="form-control mb-2" placeholder="Novo Título" id="inputTituloLivro">
+                      <div class="mb-3">
+                        <label for="livro-categoria" class="form-label">Categoria do Livro</label>
+                          <select class="form-select" id="livro-categoria">
+                            <option selected disabled hidden value="">Categoria do livro</option>
+                            <option value="1">Terror</option>
+                            <option value="2">Ficção</option>
+                            <option value="3">Romance</option>
+                            <option value="4">Aventura</option>
+                            <option value="5">Fantasia</option>
+                            <option value="6">Suspense</option>
+                            <option value="7">Biografia</option>
+                            <option value="8">História</option>
+                            <option value="9">Ciência</option>
+                            <option value="10">Autoajuda</option>
+                            <option value="11">Tecnologia</option>
+                            <option value="12">Drama</option>
+                            <option value="13">Poesia</option>
+                            <option value="14">HQs e Mangás</option>
+                            <option value="15">Infantil</option>
+                            <option value="16">Didático</option>
+                            <option value="17">Policial</option>
+                          </select>
+                      </div>
+                      <input type="number" class="form-control mb-2" placeholder="Nova Quantidade" id="inputQuantidadeLivro">
+                      <input type="number" class="form-control mb-2" placeholder="Emprestados" id="inputEmprestadosLivro">
+                      <button class="btn btn-success" onclick="atualizarLivro()">Salvar Alterações</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Exibir Acervo de Livros -->
-            <div class="tab-pane fade" id="v-pills-view-books" role="tabpanel" aria-labelledby="v-pills-view-books-tab" tabindex="0">
-              <h1 class="text-center p-3">Acervo de Livros</h1>
-              <div class="input-group mb-3 w-25 ms-1">
-                <input type="text" class="form-control" placeholder="Digite aqui o que você procura" aria-label="Pesquisar" id="input-pesquisa-livro">
-              </div>
+            <div class="tab-pane fade background-exibir-livro" id="v-pills-view-books" role="tabpanel" aria-labelledby="v-pills-view-books-tab" tabindex="0">
+              <h1 class="text-center p-3 fw-bold">Acervo de Livros</h1>
+              <div class="d-flex justify-content-between align-items-center px-4 py-2" style="width: 100%;">
+                <input type="text" class="form-control w-25 me-auto" placeholder="Digite aqui para pesquisar" id="input-pesquisa-livro">
+                <input type="text" class="form-control w-25 ms-auto" placeholder="Insira o ID do livro para a exclusão" id="input-deletar-livro">
+                <button class="btn btn-outline-danger" onclick='deletarEntidade("livros", "input-deletar-livro")'>Excluir livro</button>
+              </div>  
               <div>
                 <table class="table">
                   <thead>
@@ -192,11 +233,13 @@
             </div>
 
              <!-- Exibir Todos os Clientes -->
-            <div class="tab-pane fade" id="v-pills-view-clients" role="tabpanel" aria-labelledby="v-pills-view-clients-tab" tabindex="0">
+            <div class="tab-pane fade background-exibir-cliente" id="v-pills-view-clients" role="tabpanel" aria-labelledby="v-pills-view-clients-tab" tabindex="0">
               <h1 class="text-center p-3">Lista de Clientes</h1>
-              <div class="input-group mb-3 w-25 ms-1">
-                <input type="text" class="form-control" placeholder="Digite aqui o que você procura" aria-label="Pesquisar Cliente" id="input-pesquisa-cliente">
-              </div>
+              <div class="d-flex justify-content-between align-items-center px-4 py-2" style="width: 100%;">
+                <input type="text" class="form-control w-25 me-auto" placeholder="Digite aqui para pesquisar" id="input-pesquisa-cliente">
+                <input type="text" class="form-control w-25 ms-auto" placeholder="Insira o ID do cliente para a exclusão" id="input-deletar-cliente">
+                <button class="btn btn-outline-danger" onclick='deletarEntidade("clientes", "input-deletar-cliente")'>Excluir cliente</button>
+              </div> 
               <div>
                 <table class="table">
                   <thead>
@@ -218,8 +261,8 @@
             </div>
 
             <!-- Realizar Empréstimo -->
-            <div class="tab-pane fade" id="v-pills-loan-book" role="tabpanel" aria-labelledby="v-pills-loan-book-tab" tabindex="0">
-                <div class="container-cadastro d-flex">
+            <div class="tab-pane fade background-emprestimo" id="v-pills-loan-book" role="tabpanel" aria-labelledby="v-pills-loan-book-tab" tabindex="0">
+                <div class="container-emprestimo-devolucao d-flex">
                     <h1 class="text-center p-3">Realizar Empréstimo</h1>
                     <div class="mb-3">
                         <label for="livro-id" class="form-label">ID do Livro</label>
@@ -233,13 +276,13 @@
                       <label for="livro-id" class="form-label">Data de devolução</label>
                       <input type="date" class="form-control" id="devolucao-data">
                     </div>
-                    <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3" onclick="criarJSONemprestimo()">Realizar Empréstimo</button>
+                    <button type="button" class="btn btn-outline-success mb-3 w-30 mt-3" onclick="criarJSONemprestimo()">Realizar Empréstimo</button>
                 </div>
             </div>
 
             <!-- Realizar Devolução -->
-            <div class="tab-pane fade" id="v-pills-return-book" role="tabpanel" aria-labelledby="v-pills-return-book-tab" tabindex="0">
-                <div class="container-cadastro d-flex">
+            <div class="tab-pane fade background-devolucao" id="v-pills-return-book" role="tabpanel" aria-labelledby="v-pills-return-book-tab" tabindex="0">
+                <div class="container-emprestimo-devolucao d-flex">
                     <h1 class="text-center p-3">Realizar Devolução</h1>
                     <div class="mb-3">
                         <label for="livro-id-devolucao" class="form-label">ID do Livro</label>
@@ -249,14 +292,14 @@
                         <label for="usuario-id-devolucao" class="form-label">ID do Cliente</label>
                         <input type="text" class="form-control" id="cliente-id-devolucao" placeholder="ID do usuário">
                     </div>
-                    <button type="button" class="btn btn-outline-light mb-3 w-30 mt-3" onclick="criarJSONdevolucao()">Realizar Devolução</button>
+                    <button type="button" class="btn btn-outline-success mb-3 w-30 mt-3" onclick="criarJSONdevolucao()">Realizar Devolução</button>
                     <div id="mensagem-devolucao" class="alert alert-success mt-3" style="display: none;">
                         <strong>Devolução realizada!</strong>
                     </div>
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="v-pills-account-settings" role="tabpanel" aria-labelledby="v-pills-account-settings-tab" tabindex="0">
+            <div class="tab-pane fade background-biblioteca-config" id="v-pills-account-settings" role="tabpanel" aria-labelledby="v-pills-account-settings-tab" tabindex="0">
               <div class="container mt-6 text-white container-config-conta">
                 <h2 class="mb-4 p-3">Configurações da Conta</h2>
             
@@ -289,12 +332,48 @@
                       <p><strong>CPF:</strong> <span id="cpf-usuario-conta">Carregando...</span></p>
                       <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarCpf" aria-expanded="false" aria-controls="editarCpf">Editar CPF</button>
                       <div class="collapse mt-2" id="editarCpf">
-                        <input type="text" class="form-control mb-2" placeholder="Digite o novo CPF" id="inputCpf">
+                        <input type="text" class="form-control mb-2" placeholder="Digite o novo CPF" id="inputCpf" maxlength="11">
                         <button class="btn btn-success" onclick="atualizarConta()">Salvar</button>
                       </div>
                     </div>
+
+                    <!-- Telefone -->
+                    <div class="mb-4">
+                      <p><strong>Telefone:</strong> <span id="telefone-usuario-conta">Carregando...</span></p>
+                      <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#editarTel" aria-expanded="false" aria-controls="editarTel">Editar Telefone</button>
+                      <div class="collapse mt-2" id="editarTel">
+                        <input type="text" class="form-control mb-2" placeholder="Digite o novo telefone" id="inputTel" maxlength="11">
+                        <button class="btn btn-success" onclick="atualizarConta()">Salvar</button>
+                      </div>
+                    </div>
+
+                    <div>
+                        <!-- Deletar Conta -->
+                      <button type="button" class="btn btn-outline-danger mt-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Deletar Conta
+                      </button>
+                      
+                      <!-- Modal -->
+                      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="staticBackdropLabel">Deletar Conta</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              Deseja realmente deletar a sua conta? Todos os seus dados serão excluídos.
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+                              <button type="button" class="btn btn-outline-danger" onclick="deletarConta()">Confirmar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-            
+                  
                   <!-- COLUNA DIREITA -->
                   <div class="col-md-6">
                     <!-- Senha -->
@@ -351,5 +430,6 @@
     <script src="../js/script-menu-atualizar-clientes.js"></script>
     <script src="../js/script-cadastro-biblioteca.js"></script>
     <script src="../js/script-configurar-conta.js"></script>
+    <script src="../js/script-deletar-livro-cliente.js"></script>
 </body>
 </html>

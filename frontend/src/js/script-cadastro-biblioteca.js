@@ -13,7 +13,8 @@ function verificarBiblioteca() {
     const token = localStorage.getItem("token");
 
     if (!token) {
-        alert("Token não encontrado. Faça login novamente.");
+        console.log("Token não encontrado. Faça login novamente.");
+        window.location.href = "../index.html";
         return;
     }
 
@@ -29,6 +30,7 @@ function verificarBiblioteca() {
     .then(gestor => {
         document.getElementById("header-nome-usuario").textContent = gestor.nome;
         document.getElementById("header-sobrenome-usuario").textContent = gestor.sobrenome;
+        console.log(gestor);
 
         if (!gestor.biblioteca && !modalExibido) {
             modalExibido = true;

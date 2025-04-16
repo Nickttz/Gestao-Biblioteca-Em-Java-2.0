@@ -20,7 +20,10 @@ import com.project.biblioteca.mapper.Mapper;
 import com.project.biblioteca.model.UsuarioGestor;
 import com.project.biblioteca.security.Token;
 import com.project.biblioteca.security.TokenUtil;
+import com.project.biblioteca.service.AuthHelperService;
 import com.project.biblioteca.service.UsuarioGestorService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin("*")
@@ -28,15 +31,24 @@ public class UsuarioGestorController {
     
     private final UsuarioGestorService usuarioGestorService;
     private final TokenUtil tokenService;
+    private final AuthHelperService authHelper;
 
-    public UsuarioGestorController (UsuarioGestorService usuarioGestorService, TokenUtil tokenService) {
+    public UsuarioGestorController (UsuarioGestorService usuarioGestorService, TokenUtil tokenService, AuthHelperService authHelper) {
         this.usuarioGestorService = usuarioGestorService;
         this.tokenService = tokenService;
+        this.authHelper = authHelper;
     }
     
     @PostMapping("/cadastro")
     public ResponseEntity<?> criarUsuarioGestor(@RequestBody UsuarioGestorDto usuario) {
-        return ResponseEntity.status(201).body(usuarioGestorService.cadastrarUsuario(usuario));
+        
+        UsuarioGestor user = usuarioGestorService.cadastrarUsuario(usuario);
+        
+        if(user != null) {
+            return ResponseEntity.status(201).body(user);
+        }
+        
+        return ResponseEntity.status(400).body("Usuário já cadastrado");
     }
 
     @GetMapping("/usuarios/perfil/biblioteca")
@@ -99,24 +111,34 @@ public class UsuarioGestorController {
     }
 
     @PutMapping("usuarios/{cpf}")
-    public ResponseEntity<?> atualizarUsuario(@PathVariable String cpf, @RequestBody UsuarioGestorDto usuarioAtualizado) {
-        Optional<UsuarioGestor> usuario = usuarioGestorService.atualizarUsuario(cpf, usuarioAtualizado);
+    public ResponseEntity<?> atualizarUsuario(@PathVariable String cpf, @RequestBody UsuarioGestorDto usuarioAtualizado, HttpServletRequest request) {
+        UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
 
-        if (usuario.isPresent()) {
-            return ResponseEntity.ok(usuario.get());
-        } else {
-            return ResponseEntity.status(404).body("Usuário não encontrado.");
+        if (gestor != null && gestor.getCpf().equals(cpf)) {
+            Optional<UsuarioGestor> usuario = usuarioGestorService.atualizarUsuario(cpf, usuarioAtualizado);
+
+            if (usuario.isPresent()) {
+                return ResponseEntity.ok(usuario.get());
+            } else {
+                return ResponseEntity.status(404).body("Usuário não encontrado.");
+            }
         }
+        return ResponseEntity.status(404).body("Usuário não encontrado");
     }
     
-    @DeleteMapping("usuarios/{id}")
-    public ResponseEntity<?> deletarUsuario(@PathVariable Integer id) {
-        boolean deletado = usuarioGestorService.deletarUsuario(id);
+    @DeleteMapping("usuarios/delete/{cpf}")
+    public ResponseEntity<?> deletarUsuario(@PathVariable String cpf, HttpServletRequest request) {
+        UsuarioGestor gestor = authHelper.validarTokenEObterGestor(request);
+
+        if (gestor != null && gestor.getCpf().equals(cpf)) {
+            boolean deletado = usuarioGestorService.deletarUsuario(cpf);
     
-        if (deletado) {
-            return ResponseEntity.status(204).build();
-        } else {
-            return ResponseEntity.status(404).build();
+            if (deletado) {
+                return ResponseEntity.status(204).build();
+            } else {
+                return ResponseEntity.status(404).build();
+            }
         }
+        return ResponseEntity.status(404).body("Usuário não encontrado");
     }
 }

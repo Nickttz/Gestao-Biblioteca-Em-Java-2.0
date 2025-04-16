@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 
 import com.project.biblioteca.dto.UsuarioDto;
 import com.project.biblioteca.dto.UsuarioGestorDto;
+import com.project.biblioteca.model.Emprestimo;
 import com.project.biblioteca.model.Usuario;
 import com.project.biblioteca.model.UsuarioGestor;
+import com.project.biblioteca.repository.IEmprestimo;
 import com.project.biblioteca.repository.IUsuario;
 import com.project.biblioteca.repository.IUsuarioGestor;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
@@ -23,12 +27,15 @@ public class UsuarioService {
     private IUsuario repositoryUser;
     @Autowired
     private IUsuarioGestor repositoryGestor;
+    @Autowired
+    private IEmprestimo emprestimoRepositoy;
 
     public Usuario cadastrar(UsuarioDto dto, UsuarioGestorDto gestorDto) {
         Optional<UsuarioGestor> gestorOpt = repositoryGestor.findByCpf(gestorDto.getCpf());
         UsuarioGestor gestor = gestorOpt.get();
 
         if (gestor != null) {
+
             Usuario usuario = new Usuario();
             usuario.setId(dto.getId());
             usuario.setNome(dto.getNome());
@@ -92,14 +99,24 @@ public class UsuarioService {
         }).collect(Collectors.toList());
     }
 
+    @Transactional
     public Boolean deletarUsuario(UsuarioGestorDto gestorDto, UUID id) {
         Optional<UsuarioGestor> gestorOpt = repositoryGestor.findByCpf(gestorDto.getCpf());
-        UsuarioGestor gestor = gestorOpt.get();
 
-        if (gestor != null) {
+        if (gestorOpt != null) {
+            UsuarioGestor gestor = gestorOpt.get();
             Optional<Usuario> userOpt = repositoryUser.findByIdAndContas(id, gestor);
-            if (userOpt.isPresent()) {
-                repositoryUser.delete(userOpt.get());
+            Usuario user = userOpt.get();
+
+            if (userOpt.isPresent() && emprestimoRepositoy.existsByCliente_IdAndContaAndDataDevolucaoIsNull(id, gestor)) {
+                    repositoryUser.delete(user);
+                    return true;
+            }
+
+            if(!emprestimoRepositoy.existsByLivro_IdAndContaAndDataDevolucaoIsNull(id, gestor)) {
+                List<Emprestimo> emprestimos = emprestimoRepositoy.findAllByCliente_IdAndConta(id, gestor);
+                emprestimoRepositoy.deleteAll(emprestimos);
+                repositoryUser.delete(user);
                 return true;
             }
         }

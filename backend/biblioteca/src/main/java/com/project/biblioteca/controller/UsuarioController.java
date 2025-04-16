@@ -62,7 +62,7 @@ public class UsuarioController {
 
     }
 
-    @DeleteMapping("/usuarios/clientes/deletar_cliente/{id}")
+    @DeleteMapping("/usuarios/clientes/deletar_clientes/{id}")
     public ResponseEntity<?> deletarCliente(@PathVariable UUID id, HttpServletRequest request) {
         UsuarioGestor gestorOpt = authHelper.validarTokenEObterGestor(request);
         UsuarioGestorDto gestor = Mapper.toDto(gestorOpt);
@@ -71,6 +71,6 @@ public class UsuarioController {
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.status(404).body("Cliente não encontrado.");
+        return ResponseEntity.status(404).body("Cliente não encontrado ou possui emprestimo pendente.");
     }
 }   

@@ -13,5 +13,11 @@ public interface IUsuarioGestor extends JpaRepository<UsuarioGestor, Integer> {
     Optional<UsuarioGestor> findByEmail(String email);
 
     Optional<UsuarioGestor> findByCpf(String cpfGestor);
+
+    Optional<UsuarioGestor> deleteByCpf(String cpfGestor);
+
+    void deleteAllByCpf(String cpf);
+
+    boolean existsByEmailAndCpf(String email, String cpf);
     
 }

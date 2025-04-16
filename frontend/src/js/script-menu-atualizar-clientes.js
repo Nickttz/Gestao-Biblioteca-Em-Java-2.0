@@ -3,10 +3,12 @@ function atualizarCliente() {
   const nome = document.getElementById("inputNomeCliente").value;
   const sobrenome = document.getElementById("inputSobrenomeCliente").value;
   const dataNascimento = document.getElementById("inputDataNascimentoCliente").value;
-  const cpf = document.getElementById("inputCpfCliente").value;
+  const cpf_format = document.getElementById("inputCpfCliente").value;
+  const cpf = cpf_format.replace(/\D/g, '');
   const endereco = document.getElementById("inputEnderecoCliente").value;
-  const telefone = document.getElementById("inputTelefoneCliente").value;
-
+  const telefone_format = document.getElementById("inputTelefoneCliente").value;
+  const telefone = telefone_format.replace(/\D/g, '');
+  
   const dadosAtualizados = {
     id: id,
     nome: nome,
