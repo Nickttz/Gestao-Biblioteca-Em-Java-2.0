@@ -1,6 +1,5 @@
-/* Corrigir a posição da imagem de fundo */
 .img-container {
-    background-image: url(../images/library-background.jpg);
+    background-image: url(../../public/images/library-background.jpg);
     background-size: cover;
     background-position: center;
     width: 400vh;
@@ -8,7 +7,6 @@
     position: relative;
 }
 
-/* Ajustar a sobreposição de texto */
 .text-overlay {
     font-family: 'Times New Roman';
     font-style: italic;
@@ -24,17 +22,14 @@
     border-radius: 5px;
 }
 
-
-/* Form container */
 .form-container {
     max-width: 500px;
-    margin: 0 auto; /* Centralizar na tela */
+    margin: 0 auto;
     position: relative;
-    z-index: 10; /* Garantir que fique acima da imagem de fundo */
+    z-index: 10;
     padding: 30px;
 }
 
-/* A classe para a imagem do ícone */
 .icon-img {
     margin-left: 50%;
     transform: translateX(-50%);
@@ -45,11 +40,10 @@
 }
 
 .body-image-cadastro {
-    background-image: url(../images/background-cadastro.jpg);
+    background-image: url(../../public/images/background-cadastro.jpg);
     background-position: center;
 }
 
-/* Ajustando o formulário */
 .container-cadastro-formulario {
     width: 50vw;
     height: auto;
@@ -59,7 +53,6 @@
     position: relative;
 }
 
-/* Ajustando o título do formulário */
 .title-container {
     margin-bottom: 3px;
     font-size: 50px;
@@ -68,10 +61,10 @@
 body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; 
-    width: 100%; 
+    box-sizing: border-box;
+    width: 100%;
     overflow-x: hidden;
-    overflow-y: hidden; 
+    overflow-y: hidden;
 }
 
 .container-menu-nav {
@@ -82,11 +75,11 @@ body {
 }
 
 .container-conteudo-menu {
-    margin-left: 15vw; 
+    margin-left: 15vw;
     background-color: rgb(43, 43, 43);
     position: relative;
-    width: calc(100vw - 15vw); 
-    height: 100vh; 
+    width: calc(100vw - 15vw);
+    height: 100vh;
 }
 
 .nav-link {
@@ -101,7 +94,7 @@ body {
     height: auto;
     background-color: rgb(34, 34, 34);
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     margin-left: 30vw;
     padding: 30px;
     border-radius: 20px;
@@ -110,13 +103,13 @@ body {
 }
 
 .background-cadastro-usuario {
-    background-image: url(../images/background-cadastro-usuario.jpg);
+    background-image: url(../../public/images/background-cadastro-usuario.jpg);
     background-position: center;
     background-size: cover;
 }
 
 .background-cadastro-livro {
-    background-image: url(../images/background-book.jpg);
+    background-image: url(../../public/images/background-book.jpg);
     background-position: center;
     background-size: cover;
     min-height: 100vh;
@@ -127,7 +120,7 @@ body {
     height: auto;
     background-color: rgb(34, 34, 34);
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     margin-left: 20vw;
     padding: 30px;
     border-radius: 20px;
@@ -141,7 +134,7 @@ body {
     height: auto;
     background-color: rgb(34, 34, 34);
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     margin-left: 20vw;
     padding: 30px;
     border-radius: 20px;
@@ -150,28 +143,28 @@ body {
 }
 
 .background-update {
-    background-image: url(../images/background-update-dados.jpg);
+    background-image: url(../../public/images/background-update-dados.jpg);
     background-size: cover;
     background-position: bottom;
     min-height: 100vh;
 }
 
 .background-emprestimo {
-    background-image: url(../images/background-realizar-emprestimo.jpg);
+    background-image: url(../../public/images/background-realizar-emprestimo.jpg);
     background-size: cover;
     background-position: center;
     min-height: 100vh;
 }
 
 .background-devolucao {
-    background-image: url(../images/background-devolucao.jpg);
+    background-image: url(../../public/images/background-devolucao.jpg);
     background-size: cover;
     background-position: center bottom;
     min-height: 100vh;
 }
 
 .background-biblioteca-config {
-    background-image: url(../images/background-biblioteca-config.jpg);
+    background-image: url(../../public/images/background-biblioteca-config.jpg);
     background-size: cover;
     background-position: bottom;
     min-height: 100vh;
@@ -183,7 +176,7 @@ body {
     height: auto;
     background-color: rgb(34, 34, 34);
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     margin-left: 30vw;
     padding: 30px;
     border-radius: 20px;
@@ -197,7 +190,7 @@ body {
     height: auto;
     background-color: rgb(34, 34, 34);
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     margin-left: 30vw;
     padding: 30px;
     border-radius: 20px;
