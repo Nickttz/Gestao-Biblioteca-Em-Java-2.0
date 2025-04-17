@@ -49,10 +49,16 @@ function criarJSONCadastro() {
         return;
     }
 
+    if(!validarSenha(senha)) {
+        alert("Sua senha não atendeu aos critérios");
+        return;
+    }
+
     if (senha !== confirmarSenha) {
         alert("As senhas não coincidem. Por favor, verifique.");
         return;
     }
+
 
     const dados = {
         email: email,
@@ -100,4 +106,19 @@ function clear() {
     document.getElementById("sobrenomeInput").value = '';
     document.getElementById("cpfInput").value = '';
     document.getElementById("telefoneInput").value = '';
+}
+
+function validarSenha(senha) {
+
+    if(senha.length < 8 || senha.length > 20) {
+        return false;
+    }
+
+    const regex = /^[a-zA-Z0-9]+$/;
+
+    if(!regex.test(senha)) {
+        return false;
+    }
+
+    return true;
 }
