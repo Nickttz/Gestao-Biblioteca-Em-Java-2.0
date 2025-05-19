@@ -99,3 +99,21 @@ docker-compose up -d
 mvn clean install
 mvn spring-boot:run
 ```
+## Imagens da interface:
+
+### Tela de login
+
+![tela-login](https://github.com/user-attachments/assets/c1cda0df-00fe-4c67-bb0e-0416755e46e0)
+
+### Configuração de primeiro acesso
+
+![config-primeiro-acesso](https://github.com/user-attachments/assets/fdef858b-7ab7-4a06-ae70-1d5d60ab8bba)
+
+### Tabela de livros cadastrados no acervo
+
+![tabela-livros](https://github.com/user-attachments/assets/62787b95-5a70-489d-8b2d-364a38d1a037)
+
+### Configurações da conta
+
+![config-conta](https://github.com/user-attachments/assets/bdc42f88-0232-4c1c-8a7f-430d7944c286)
+
